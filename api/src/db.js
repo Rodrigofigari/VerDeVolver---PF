@@ -49,8 +49,7 @@ console.log('models:', sequelize.models);
 const { Donation, Feedback, Material, Role, Service, User, VdV } =
   sequelize.models;
 
-/*
- */
+
 
 User.belongsToMany(VdV, { through: Donation }); // valroes : id (autoincremental) y monto --> Id usuario y el id de la entidad
 VdV.belongsToMany(User, { through: Donation });
@@ -71,9 +70,7 @@ VdV.belongsToMany(Material, { through: 'Material_VdV' });
 
 // hasmany / hasone
 
-// Aca vendrian las relaciones : EJEMPLO
-// Country.belongsToMany(Activity, { through: 'Activities_Countries' });
-// Activity.belongsToMany(Country, { through: 'Activities_Countries' });
+
 
 //
 
