@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Flex, Heading, Image } from '@chakra-ui/react';
-import OverflowScroll from '../Components/OverflowScroll';
-import InfoCardInput from '../Components/InforCardInput';
+import OverflowScroll from '../../Components/OverflowScroll';
+import InfoCardInput from '../../Components/InforCardInput';
 
 function UserProfile() {
   const [input, setInput] = useState({

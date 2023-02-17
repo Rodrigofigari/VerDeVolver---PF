@@ -7,7 +7,7 @@ import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
 import SingUpEntitie from './pages/SingUpEntitie';
 import Login from './Components/Login';
-import UserProfile from './pages/UserProfile';
+import UserProfile from './pages/user profile/UserProfile';
 import EntityProfile from './pages/EntityProfile';
 import Dashboard from './pages/Dashboard';
 import About from './pages/About';
