@@ -107,7 +107,6 @@ const vdvCreate = async (req, res) => {
     try {
       const VdVupDate = VdV.update(body, {
         where: {id}
-      
       })
      res.status(200).json(VdVupDate)
       
