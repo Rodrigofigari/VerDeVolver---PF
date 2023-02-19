@@ -1,7 +1,7 @@
 
 const { VdV, Material} = require('../../db.js');
-
-async function chargeDbVdVs() {
+const {data} = require('../VdV/data')
+ async function chargeDbVdVs() {
 
   const bulkCreateVdvs = await VdV.bulkCreate([
     {  name: "Reciclar Ayuda", img: "www.imagen.com", mail:"ra@mail.com", password:"12345", address:"calle 1", description:"Somos una ONG sin fines de lucro", CBU:"34567898777", materials :[1, 5,7]},
@@ -12,7 +12,9 @@ async function chargeDbVdVs() {
 
   return bulkCreateVdvs;
 
-}
+} 
+
+
 
 const getVdV = async (req, res) => {
   const name = req.query.name;
@@ -22,7 +24,7 @@ const getVdV = async (req, res) => {
       include: [
         { 
          model: Material,
-         attributes: ["id"],
+         attributes: ["name"],
      
          through: {
            attributes: [],
@@ -83,7 +85,7 @@ const vdvCreate = async (req, res) => {
           include: [
             { 
              model: Material,
-             attributes: ["id"],
+             attributes: ["name"],
          
              through: {
                attributes: [],
@@ -105,9 +107,9 @@ const vdvCreate = async (req, res) => {
     try {
       const VdVupDate = VdV.update(body, {
         where: {id}
-
+      
       })
-      res.status(200).json(VdVupDate)
+     res.status(200).json(VdVupDate)
       
     } catch (error) {
       res.status(500).send('Problemas')

@@ -3,12 +3,14 @@ const { Material } = require('../../db.js');
 
 async function chargeDbMaterial() {
   const bulkCreateMaterial = await Material.bulkCreate([
+ /*  [  Madera, Vidrio, Papel, Plastico, Chapa, Hierro] */
     { name: 'Madera' },
     { name: 'Vidrio' },
     { name: 'Papel' },
     { name: 'Plastico' },
     { name: 'Chapa' },
-    { name: 'Hierro' },
+    { name: 'Hierro' }, 
+  
   ]);
 
   return bulkCreateMaterial;
