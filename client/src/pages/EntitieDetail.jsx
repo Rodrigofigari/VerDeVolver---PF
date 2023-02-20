@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
-import RankingStars from '../components/RankingStars';
+import RankingStars from '../Components/RankingStars';
 import axios from 'axios';
 
 const EntityDetail = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
-import AsideMap from '../components/AsideMap';
+import AsideMap from '../Components/AsideMap';
 
 const Map = () => {
   return (

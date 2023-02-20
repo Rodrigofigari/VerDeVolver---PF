@@ -17,7 +17,7 @@ import SingUp from './pages/SingUp';
 // import { useDispatch } from 'react-redux';
 // import { useEffect } from 'react';
 // import { getEntities } from './redux/actions/entitiesActions';
-import ColorModeSwitcher from './components/ColorModeSwitcher';
+import ColorModeSwitcher from './Components/ColorModeSwitcher';
 
 const App = () => {
   // const dispatch = useDispatch();

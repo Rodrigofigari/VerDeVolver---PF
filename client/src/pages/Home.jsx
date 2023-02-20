@@ -13,7 +13,7 @@ import {
   HStack,
   Heading,
 } from '@chakra-ui/react';
-import PostsCarousel from '../components/PostsCarousel';
+import PostsCarousel from '../Components/PostsCarousel';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 
 const Home = () => {

@@ -1,9 +1,9 @@
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import SearchBar from '../Components/SearchBar';
 import { useSelector, useDispatch } from 'react-redux';
-import EntityCard from '../components/EntityCard';
+import EntityCard from '../Components/EntityCard';
 import PropagateLoader from 'react-spinners/PropagateLoader';
-import AsideFilters from '../components/AsideFilters';
+import AsideFilters from '../Components/AsideFilters';
 import { useEffect } from 'react';
 import { fetchEntities } from '../redux/actions/entitiesActions';
 
