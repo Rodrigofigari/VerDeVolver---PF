@@ -21,6 +21,8 @@ const EntityCard = ({ entity }) => {
       <CardBody display="flex" flexDir="row" gap="1rem">
         <Image src="https://picsum.photos/300" />
 
+        
+
         <VStack alignItems="flex-start">
           <Link as={ReachLink} to={`/entitie/${entity.id}`}>
             <Heading>{entity.name}</Heading>
