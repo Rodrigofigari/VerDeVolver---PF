@@ -31,8 +31,10 @@ const AsideMap = () => {
         colorScheme="green"
         onClick={onOpen}
         pos="absolute"
+        top="40"
         right="0"
         m="1rem"
+        zIndex="1"
         icon={<IoMdOptions />}
       />
 

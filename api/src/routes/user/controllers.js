@@ -66,7 +66,7 @@ const postUser = async (body) => {
     });
     return newUser;
   }
-};
+}; 
 
 const getAllUser = async () => {
   const dbAll = await User.findAll({
@@ -134,6 +134,24 @@ const deleteUser = async (id) => {
     throw Error({ error: error.message });
   }
 };
+// la ruta del create funciona usemos la misma ??
+/* const createUser = async (data) => {
+  //const algHash = await bcrypt.hash(data.password, 10);
+  const user = await User.create({...data, password: algHash});
+  console.log(user)
+  
+  delete user.dataValues.password;
+  return user;
+}; */
+
+const findBymail = async (mail) => {
+  const userMail = User.findOne({
+    where: {mail}
+  })
+  return userMail
+}
+
+
 
 module.exports = {
   chargeDbUsers,
@@ -143,4 +161,6 @@ module.exports = {
   findId,
   updateUser,
   deleteUser,
+  findBymail,
+  //createUser
 };
