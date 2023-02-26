@@ -2,9 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const passport = require('passport')
-require('dotenv').config();
-const { SECRET } = process.env;
+
 // importamos index
 const routes = require('./routes/index.js');
 
@@ -13,23 +11,11 @@ require('./db.js');
 const server = express();
 server.name = 'API';
 
-
-//server.use(cors());
-//requiero auth
 //middlewares
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
-server.use(
-  require("express-session")({
-    secret: SECRET,
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-server.use(passport.initialize());
-server.use(passport.session());
 
 //corse
 server.use((req, res, next) => {
