@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { mercadopago } = require('../mercadoPago.js');
+const { SMTP_PASSWORD } = process.env;
 
 const {
   chargeDbDonation,
@@ -34,7 +35,7 @@ router.post('/', async (req, res) => {
       .then((response) => res.status(200).send(response));
     // res.status(200).send(newDonation);
   } catch (error) {
-    res.status(404).send(error);
+    res.status(404).send(error.message);
     // 'Ocurrio un error. No se puede crear la donacion'
   }
 });
