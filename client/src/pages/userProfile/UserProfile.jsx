@@ -33,7 +33,10 @@ import {
 import { AtSignIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { BiUser, BiUserX } from 'react-icons/bi';
 import UploadImage from '../../Components/Cloudinary';
-import {getUserDonations, getUserFeedbacks} from '../../redux/actions/usersActions';
+import {
+  getUserDonations,
+  getUserFeedbacks,
+} from '../../redux/actions/usersActions';
 import { authAcountLocal } from '../../redux/actions/acountActions';
 import RankingStars from '../../Components/RankingStars';
 
@@ -43,7 +46,6 @@ function UserProfile() {
   const { acount } = useSelector((state) => state.acountReducer);
   const { donations, feedbacks } = useSelector((state) => state.usersReducer);
   const navigate = useNavigate();
-
 
   const userId = acount.id;
   useEffect(() => {
@@ -91,13 +93,13 @@ function UserProfile() {
 
   return (
     <Grid templateColumns={'repeat(2, 1fr)'} gap="2rem">
-      <GridItem ml='2rem' mt='1rem'>
+      <GridItem ml="2rem" mt="1rem">
         <Heading mb={'1rem'}>Información del usuario</Heading>
         <Box my="1rem">
           <Text>Nombre</Text>
-          <InputGroup >
+          <InputGroup>
             <InputLeftElement children={<BiUser />} />
-            <Input 
+            <Input
               type="text"
               name="name"
               value={input.name}
@@ -174,66 +176,76 @@ function UserProfile() {
         </ButtonGroup>
       </GridItem>
 
-      <GridItem mr='1rem' mb='2rem'>
+      <GridItem mr="1rem" mb="2rem">
         <Stack mt="1rem" spacing={'1rem'}>
-
-        <Heading mt='1rem'>Donaciones</Heading>
-        <Divider />
-        <VStack
+          <Heading mt="1rem">Donaciones</Heading>
+          <Divider />
+          <VStack
             alignItems="flex-start"
             maxH="25vh"
             overflowY={'scroll'}
             divider={<StackDivider />}
           >
-        {donations.length !== 0 ? donations.map(({ amount, date, VdV }) => (
-          <Box >
-            <HStack spacing='1rem' >
-              <Avatar src={VdV.img} name={VdV.name} size="sm" />
-              <Flex justifyContent='start' width='24vw' >
-                <Text>{VdV.name}</Text>
-              </Flex>
-              <Flex justifyContent='start' width='10vw' ml='2rem'>
-                <Text>{amount}</Text>
-              </Flex>
-              <Flex justifyContent='flex-start' width='9vw'>
-                <Text>{date}</Text>
-              </Flex>
-            </HStack>
-          </Box>
-        )): <Box display='flex' h='20vh' alignItems='center' > 
-              <Text 
-                fontSize='lg' as='b' ml='1rem' 
-              > No se encontraron donaciones pertenecientes a este usuario </Text>
-            </Box> }
-        </VStack>
+            {donations.length !== 0 ? (
+              donations.map(({ amount, date, VdV }) => (
+                <Box>
+                  <HStack spacing="1rem">
+                    <Avatar src={VdV.img} name={VdV.name} size="sm" />
+                    <Flex justifyContent="start" width="24vw">
+                      <Text>{VdV.name}</Text>
+                    </Flex>
+                    <Flex justifyContent="start" width="10vw" ml="2rem">
+                      <Text>{amount}</Text>
+                    </Flex>
+                    <Flex justifyContent="flex-start" width="9vw">
+                      <Text>{date}</Text>
+                    </Flex>
+                  </HStack>
+                </Box>
+              ))
+            ) : (
+              <Box display="flex" h="20vh" alignItems="center">
+                <Text fontSize="lg" as="b" ml="1rem">
+                  {' '}
+                  No se encontraron donaciones pertenecientes a este usuario{' '}
+                </Text>
+              </Box>
+            )}
+          </VStack>
 
-        <Heading>Reseñas</Heading>
-        <Divider></Divider>
-        <VStack
+          <Heading>Reseñas</Heading>
+          <Divider></Divider>
+          <VStack
             alignItems="flex-start"
             maxH="25vh"
             overflowY={'scroll'}
             divider={<StackDivider />}
           >
-        {feedbacks.length !== 0 ? feedbacks.map(({ comment, rating, date, VdV }) => (
-          <Box >
-            <HStack spacing='1rem' >
-              <Avatar src={VdV.img} name={VdV.name} size="sm" />
-              <RankingStars stars={rating} ></RankingStars>
-              <Flex justifyContent='start' width='22vw' >
-                <Text>{comment}</Text>
-              </Flex>
-              <Flex justifyContent='flex-end' width='9vw'>
-                <Text>{date}</Text>
-              </Flex>
-            </HStack>
-            <Text>{VdV.name}</Text>
-          </Box>
-        )): <Box display='flex' h='20vh' alignItems='center' > 
-              <Text 
-                fontSize='lg' as='b' ml='1rem' 
-              > No se encontraron reseñas pertenecientes a este usuario </Text>
-            </Box> }
+            {feedbacks.length !== 0 ? (
+              feedbacks.map(({ comment, rating, date, VdV }) => (
+                <Box>
+                  <HStack spacing="1rem">
+                    <Avatar src={VdV.img} name={VdV.name} size="sm" />
+                    <RankingStars stars={rating}></RankingStars>
+                    <Flex justifyContent="start" width="22vw">
+                      <Text>{comment}</Text>
+                    </Flex>
+                    <Flex justifyContent="flex-end" width="9vw">
+                      <Text>{date}</Text>
+                    </Flex>
+                  </HStack>
+                  <Text>{VdV.name}</Text>
+                </Box>
+              ))
+            ) : (
+              <Box display="flex" h="20vh" alignItems="center">
+                <Text fontSize="lg" as="b" ml="1rem">
+                  {' '}
+                  No se encontraron reseñas pertenecientes a este usuario{' '}
+                </Text>
+              </Box>
+            )}
+            <Box height={'5rem'}></Box>
           </VStack>
         </Stack>
       </GridItem>

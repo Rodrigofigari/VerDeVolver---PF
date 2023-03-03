@@ -46,8 +46,8 @@ const EntityDetail = () => {
   const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
   const { acount } = useSelector((state) => state.acountReducer);
 
-  //borra dp 
-  console.log('estadoFeedbacks', feedbacks)
+  //borra dp
+  console.log('estadoFeedbacks', feedbacks);
   //
 
   if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
@@ -81,7 +81,7 @@ const EntityDetail = () => {
           .post('http://localhost:3001/donation', {
             VdVId: id,
             amount: inputMonto,
-            UserId: userId 
+            UserId: userId,
           })
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
@@ -102,22 +102,22 @@ const EntityDetail = () => {
     const userId = acount.id;
     if (!userId) {
       navigate('/login');
-        toast({
-          title: 'Error',
-          description: 'Debes iniciar sesión para poder dejar tu reseña',
-          status: 'error',
-          duration: 1500,
-          isClosable: true,
-        });
+      toast({
+        title: 'Error',
+        description: 'Debes iniciar sesión para poder dejar tu reseña',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
     }
     if (!inputReview) {
-        toast({
-          title: 'Error',
-          description: 'Debes elegir una puntuación y escribir un comentario',
-          status: 'error',
-          duration: 1500,
-          isClosable: true,
-        });
+      toast({
+        title: 'Error',
+        description: 'Debes elegir una puntuación y escribir un comentario',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
     }
     if (inputReview && userId) {
       try {
@@ -135,7 +135,6 @@ const EntityDetail = () => {
           duration: 1500,
           isClosable: true,
         });
-        
       } catch (error) {
         throw Error(error.message);
       }
@@ -183,12 +182,13 @@ const EntityDetail = () => {
           >
             {feedbacks?.map(({ User, comment, rating }) => (
               <Box key={User + comment}>
-                <HStack spacing='1rem'>
-                {
-                  (User.image == null)? <Avatar name={User.name}  size="sm" />
-                  : <Avatar src={User.image}  size="sm" />
-                }
-                
+                <HStack spacing="1rem">
+                  {User.image == null ? (
+                    <Avatar name={User.name} size="sm" />
+                  ) : (
+                    <Avatar src={User.image} size="sm" />
+                  )}
+
                   <Text>{User.name}</Text>
                   <RankingStars stars={rating} />
                 </HStack>
@@ -214,9 +214,9 @@ const EntityDetail = () => {
               </Button>
             </VStack>
           </Box>
+          <Box height={'5rem'}></Box>
         </Stack>
       </GridItem>
-      <Box height={'1rem'}></Box>
     </Grid>
   );
 };

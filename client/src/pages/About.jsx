@@ -63,8 +63,11 @@ const About = () => {
       img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730208/sol_qut1t5.jpg',
     },
     {
-      name: 'Milton Jeremias Amelino',
-      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677730247/tato_sa9zqk.jpg',
+      name: 'Milton Amelino',
+      img: 'https://res.cloudinary.com/verdevolver/image/upload/v1677875983/images/bcdspw6rvhwxnxszvduc.jpg',
+      linkedin: 'https://www.linkedin.com/in/milton-amelino-6987a1192/',
+      ig: 'https://www.instagram.com/tateuer/',
+      mail: 'tateuer@gmail.com',
     },
     {
       name: 'Diana Atobe',
@@ -136,6 +139,7 @@ const About = () => {
           renderDevCard(dev.name, dev.img, dev.linkedin, dev.ig, dev.mail)
         )}
       </Flex>
+      <Box height={'2rem'}></Box>
     </Flex>
   );
 };

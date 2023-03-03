@@ -40,7 +40,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Flex direction="row" justify="space-evenly">
+    <Flex direction="row" justify="space-evenly" mb={'2rem'}>
       <Flex direction="column">
         <Heading align="center" m="3vh">
           Reseñas
