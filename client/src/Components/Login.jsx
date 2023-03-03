@@ -22,6 +22,7 @@ import {
   authAcountLocal,
 } from '../redux/actions/acountActions';
 import axios from 'axios';
+import ForgotPassword from './ForgotPassword';
 
 const fetchUser = async (id) => {
   const res = await axios.get(`http://localhost:3001/user/${id}`);
@@ -67,13 +68,14 @@ const Login = () => {
   const [logInData, setLogInData] = useState({
     mail: '',
     password: '',
+    keepLogged: false,
   });
   const [errors, setErrors] = useState({});
-  const [show, setShow] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLogInData({ ...logInData, [name]: value });
+    const { name, value, checked } = e.target;
+    setLogInData({ ...logInData, [name]: value || checked });
     setErrors(validate({ ...logInData, [name]: value }));
   };
 
@@ -107,7 +109,7 @@ const Login = () => {
         <InputGroup>
           <InputLeftElement pointerEvents="none" children={<LockIcon />} />
           <Input
-            type={show ? 'text' : 'password'}
+            type={showPassword ? 'text' : 'password'}
             onChange={handleChange}
             value={logInData.password}
             name="password"
@@ -115,8 +117,8 @@ const Login = () => {
           />
           <InputRightElement>
             <IconButton
-              icon={show ? <ViewOffIcon /> : <ViewIcon />}
-              onClick={() => setShow(!show)}
+              icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+              onClick={() => setShowPassword(!showPassword)}
             />
           </InputRightElement>
         </InputGroup>
@@ -125,7 +127,13 @@ const Login = () => {
         )}
       </FormControl>
 
-      <Checkbox>Mantener sesión</Checkbox>
+      <Checkbox
+        name="keepLogged"
+        isChecked={logInData.keepLogged}
+        onChange={handleChange}
+      >
+        Mantener sesión
+      </Checkbox>
 
       <Button onClick={handleLogin}>Iniciar sesión</Button>
 
@@ -136,15 +144,14 @@ const Login = () => {
       />
 
       <Text alignSelf={'flex-end'}>
-        <Link>Olvidaste tu contraseña?</Link>
+        <ForgotPassword />
       </Text>
 
       <Divider />
 
       <Text textAlign={'center'}>
-        Necesitas una cuenta? <Link to="/singup">Registrate</Link>
+        ¿Necesitas una cuenta? <Link to="/singup">Registrate</Link>
       </Text>
-      <Box height={'10rem'}></Box>
     </Box>
   );
 };

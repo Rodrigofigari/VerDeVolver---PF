@@ -1,5 +1,9 @@
 const { Op } = require('sequelize');
 const { Role, User } = require('../../db.js');
+const { verify } = require('jsonwebtoken');
+const {
+  updatePassword,
+} = require('../../services/email/templates/templateUsers');
 
 async function chargeDbUsers() {
   const role = await Role.findByPk(1);
@@ -118,7 +122,6 @@ const updateUser = async (userToUD, id) => {
 
 const modifyUserRole = async (id) => {
   try {
-
     await User.update({ RoleId: 3 }, { where: { id } });
 
     const userModified = await findId(id);
@@ -153,6 +156,16 @@ const findBymail = async (mail) => {
   return userMail;
 };
 
+const changePasswordByToken = async (token, password) => {
+  const { email } = verify(token, process.env.SECRET);
+
+  const userUpdate = await findBymail(email);
+  userUpdate.password = password;
+  await userUpdate.save();
+
+  return updatePassword;
+};
+
 module.exports = {
   chargeDbUsers,
   postUser,
@@ -163,4 +176,5 @@ module.exports = {
   deleteUser,
   findBymail,
   modifyUserRole,
+  changePasswordByToken,
 };

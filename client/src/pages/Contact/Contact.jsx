@@ -16,18 +16,11 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { Logeduser } from '../../redux/actions/acountActions';
+import { LogedUser } from '../../redux/actions/acountActions';
 
 const Contact = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  let userData = localStorage.getItem('LogedUser');
-  if (userData) {
-    useEffect(() => {
-      dispatch(Logeduser());
-    }, [dispatch]);
-  }
 
   const [form, setForm] = useState({
     name: '',

@@ -1,4 +1,9 @@
 const { Router } = require('express');
+const { sendEmail } = require('../../services/email');
+const { sign } = require('jsonwebtoken');
+const {
+  htmlChangePasswordEmailTemplate,
+} = require('../../services/email/templates/templateUsers');
 const {
   chargeDbUsers,
   postUser,
@@ -7,9 +12,9 @@ const {
   findId,
   updateUser,
   deleteUser,
-  modifyUserRole,
+  findBymail,
+  changePasswordByToken,
 } = require('./controllers.js');
-
 const router = Router();
 
 router.post('/chargeDb', async (req, res) => {
@@ -104,5 +109,33 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.get('/password/:email', async (req, res) => {
+  const { email } = req.params;
+  try {
+    console.log('email', email);
+    const user = await findBymail(email);
+    console.log('user', user.name);
+    sendEmail(
+      email,
+      'Cambio de contraseña',
+      htmlChangePasswordEmailTemplate(
+        user.name,
+        sign({ email }, process.env.SECRET, { expiresIn: '24h' })
+      )
+    );
+    res.status(200).send('Enviado con éxito');
+  } catch (error) {
+    return res.status(404).send(error.message);
+  }
+});
+
+router.post('/password', async (req, res) => {
+  const { token, password } = req.body;
+  try {
+    res.status(200).send(await changePasswordByToken(token, password));
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
 
 module.exports = router;

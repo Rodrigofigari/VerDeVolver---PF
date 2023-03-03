@@ -307,6 +307,7 @@ async function chargeDbUsers() {
       password: '12345',
       address: 'calle 10',
       RoleId: role.id,
+      image: 'https://res.cloudinary.com/verdevolver/image/upload/v1677727979/images/rxsjmrsq2wqrzfiw44tt.jpg'
     },
     {
       name: 'Jack',
@@ -397,27 +398,14 @@ const chargeDbVdVs = (array) => {
 const chargeDbFeedback = async () => {
   try {
     const bulkCreateFeedbacks = await Feedback.bulkCreate([
-      {
-        comment: 'Muy malo, me trataron re mal',
-        rating: '1',
-        UserId: '1',
-        VdVId: '1',
-      },
-      {
-        comment: 'Muy bueno. Mejoraron su atencion al cliente',
-        rating: '5',
-        UserId: '1',
-        VdVId: '1',
-      },
-      {
-        comment: 'Muy bueno, me encanto',
-        rating: '5',
-        UserId: '1',
-        VdVId: '2',
-      },
+      { comment: 'Muy malo, me trataron re mal', rating: '1', UserId: '1', VdVId: '1' },
+      { comment: 'Muy bueno. Mejoraron su atencion al cliente', rating: '5', UserId: '1', VdVId: '1' },
+      { comment: 'Muy bueno, me encanto', rating: '5', UserId: '1', VdVId: '2' },
       { comment: 'Muy malo', rating: '1', UserId: '2', VdVId: '1' },
       { comment: 'Horrible todo', rating: '1', UserId: '3', VdVId: '3' },
       { comment: 'Super bien toy feliz', rating: '4', UserId: '4', VdVId: '4' },
+      { comment: 'Me encanto todo', rating: '5', UserId: '1', VdVId: '3' },
+      { comment: 'Amoooo te atienden super bien, no tengo ninguna queja', rating: '5', UserId: '1', VdVId: '5' },
     ]);
 
     return bulkCreateFeedbacks;
@@ -435,6 +423,9 @@ async function chargeDbDonation() {
     { amount: '2500', UserId: '2', VdVId: '1' },
     { amount: '3000', UserId: '3', VdVId: '3' },
     { amount: '5000', UserId: '4', VdVId: '4' },
+    { amount: '5000', UserId: '1', VdVId: '5' },
+    { amount: '100', UserId: '1', VdVId: '4' },
+    { amount: '500', UserId: '1', VdVId: '7' },
   ]);
 
   return bulkCreateDonations;

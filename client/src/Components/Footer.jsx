@@ -13,7 +13,7 @@ const Footer = () => {
         color={'white'}
       >
         <Text fontSize="l">
-          © 2023 VerDeVoler. All rights reserved. Designed and developed by
+          © 2023 VerDeVolver. All rights reserved. Designed and developed by
           Henry students
         </Text>
       </Flex>

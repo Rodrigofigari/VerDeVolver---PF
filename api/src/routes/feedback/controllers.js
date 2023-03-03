@@ -64,8 +64,8 @@ const getFeedbacks = async () => {
   try {
     const feedbacksWUsersVdvData = await Feedback.findAll({
       include: [
-        { model: User, attributes: ['name', 'last_name'] },
-        { model: VdV, attributes: ['name'] },
+        { model: User, attributes: ['name', 'last_name', 'image'] },
+        { model: VdV, attributes: ['name', 'img'] },
       ],
     });
 
@@ -81,8 +81,8 @@ const getFeedbacksById = async (id) => {
 
     const feedback = Feedback.findByPk(id, {
       include: [
-        { model: User, attributes: ['name', 'last_name'] },
-        { model: VdV, attributes: ['name'] },
+        { model: User, attributes: ['name', 'last_name', 'image'] },
+        { model: VdV, attributes: ['name', 'img'] },
       ],
     });
 
@@ -108,8 +108,8 @@ const getFeedbacksByUserId = async (id) => {
         },
       },
       include: [
-        { model: User, attributes: ['name', 'last_name'] },
-        { model: VdV, attributes: ['name'] },
+        { model: User, attributes: ['name', 'last_name', 'image'] },
+        { model: VdV, attributes: ['name', 'img'] },
       ],
     });
     if (!feedbackWUsersVdvData)
@@ -138,7 +138,7 @@ const getFeedbacksByVdVId = async (id) => {
       },
       include: [
         { model: User, attributes: ['name', 'last_name', 'image'] },
-        { model: VdV, attributes: ['name'] },
+        { model: VdV, attributes: ['name', 'img'] },
       ],
     });
     if (!feedbackWUsersVdvData)

@@ -20,7 +20,7 @@ const htmlUserRegisterEmailTemplate = (name) => `
         </body>        
                 `;
 
-const htmlChangePasswordEmailTemplate = (name) => `       
+const htmlChangePasswordEmailTemplate = (name, token) => `       
         ${templateHeader}
         <body>
           <div class="main_container">
@@ -29,7 +29,17 @@ const htmlChangePasswordEmailTemplate = (name) => `
             </div>
             <div class="text_container">
               <h1>Hola ${name}, </h1>
-              <p>Por favor ingresa tu nueva contraseña.</p>              
+              <p>Por favor ingresa tu nueva contraseña y haz click en aceptar.</p>
+              <p>La misma tendrá validez por las próximas 24 horas.</p>
+              <form action="http://localhost:3001/user/password"
+              method="POST">
+              <input type="password"
+              placeholder= "Nueva contraseña..."
+              name="password"
+              required />
+              <input type="hidden" name="token" value="${token}" />
+              <input type="submit" value="Aceptar" />              
+              </form>              
               <p>Que tengas buen día!</p>
               <p>Equipo de Verde Volver</p>
               <img alt="fondo-vdv" src="cid:vdv@Fondo" />
@@ -37,6 +47,7 @@ const htmlChangePasswordEmailTemplate = (name) => `
           </div>
         </body>        
                 `;
+
 const htmlChangeCBUEmailTemplate = (name) => `       
         ${templateHeader}
         <body>
@@ -91,10 +102,47 @@ const htmlDonationOkEmailTemplate = (name, vdvEntityName) => `
         </body>        
                 `;
 
+const updatePassword = `
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VerdeVolver</title>
+<style type="text/css">
+                h1 {
+                    color: #2c302c; 
+                    font-size: 28px;
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                
+                a {
+                    display: block; 
+                    margin-top: 20px; 
+                    text-align: center; 
+                    font-size: 18px; 
+                    color: #19a500;
+                    text-decoration: none;
+                    font-family: Arial, sans-serif; 
+                }
+                
+                a:hover {
+                    text-decoration: underline; 
+                }
+              </style>
+              </head> 
+              <body>        
+              <h1>Tu contraseña ha sido actualizada.</h1>
+              <a href="http://localhost:5173/login">Puedes volver a ingresar</a>
+              </body>
+              <html>`;
+
 module.exports = {
   htmlUserRegisterEmailTemplate,
   htmlDeleteUserEmailTemplate,
   htmlChangePasswordEmailTemplate,
   htmlChangeCBUEmailTemplate,
   htmlDonationOkEmailTemplate,
+  updatePassword,
 };

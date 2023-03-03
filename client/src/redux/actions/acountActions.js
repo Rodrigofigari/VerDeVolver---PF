@@ -5,7 +5,14 @@ export const AUTH_ACOUNT_GOOGLE = 'AUTH_ACOUNT_GOOGLE';
 export const LOGOUT_ACOUNT = 'LOGOUT_ACOUNT';
 export const LOGED_USER = 'LOGED_USER';
 
-export const authAcountLocal = ({ mail, password }) => {
+import useLocalAcount from '../../hooks/useLocalAcount';
+import useSessionAcount from '../../hooks/useSesionAcout';
+
+const { setLocalAcount, getLocalAcount, removeLocalAcount } = useLocalAcount();
+const { setSessionAcount, getSessionAcount, removeSessionAcount } =
+  useSessionAcount();
+
+export const authAcountLocal = ({ mail, password, keepLogged }) => {
   return async (dispatch) => {
     try {
       const auth = await axios.post('http://localhost:3001/login', {
@@ -21,7 +28,9 @@ export const authAcountLocal = ({ mail, password }) => {
         },
       };
 
-      localStorage.setItem('LogedUser', JSON.stringify(auth.data));
+      keepLogged
+        ? setLocalAcount({ mail, token })
+        : setSessionAcount({ mail, token });
 
       const acount = await axios.get(
         `http://localhost:3001/login?mail=${mail}`,
@@ -35,41 +44,37 @@ export const authAcountLocal = ({ mail, password }) => {
   };
 };
 
-export function Logeduser() {
+export const LogedUser = () => {
   return async function (dispatch) {
     try {
-      let userData = localStorage.getItem("LogedUser");
-      let userLS = JSON.parse(userData); 
+      const { mail, token } = getLocalAcount() ?? getSessionAcount();
 
       const config = {
         headers: {
-          Authorization: `Bearer ${userLS.token}`,
+          Authorization: `Bearer ${token}`,
         },
       };
 
-      const userInfo = await axios.get(
-        `http://localhost:3001/login?mail=${userLS.mail}`,
+      const res = await axios.get(
+        `http://localhost:3001/login?mail=${mail}`,
         config
       );
-      const userDataDb = userInfo.data;
 
-      const payload = {...userLS, ...userDataDb}
+      const user = res.data;
 
-      return dispatch({
-        type: LOGED_USER,
-        payload: payload
-      });
+      return dispatch({ type: LOGED_USER, payload: user });
     } catch (err) {
       console.log(err);
     }
   };
-}
+};
 
 export const authAcountGoogle = () => {
   window.location.href = 'http://localhost:3001/login/google';
 };
 
 export const logoutAcount = () => {
-  localStorage.removeItem('LogedUser');
+  removeLocalAcount();
+  removeSessionAcount();
   return { type: LOGOUT_ACOUNT, payload: {} };
 };

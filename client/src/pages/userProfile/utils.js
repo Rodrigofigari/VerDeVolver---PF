@@ -2,10 +2,10 @@ import axios from 'axios';
 import { logoutAcount } from '../../redux/actions/acountActions';
 
 
+
 const deleteUser = (id, navigate, dispatch) => {
   axios.delete(`http://localhost:3001/user/${id}`).then(() => {
     dispatch(logoutAcount());
-    window.alert('El usuario a sido borrado');
     navigate('/home');
   });
 };

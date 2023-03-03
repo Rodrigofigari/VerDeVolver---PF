@@ -12,52 +12,16 @@ import {
 } from '@chakra-ui/react';
 import { StarIcon, DeleteIcon } from '@chakra-ui/icons';
 import { Link as ReachLink } from 'react-router-dom';
+import typeOfDataToRender from './OverFlowScrollFunctions';
 
 function DashboardScroll({ type, id }) {
   const [arrayToRender, setArrayToRender] = useState();
   const [deleteFeedbackIcon, setdeleteFeedbackIcon] = useState();
   const Axios = axios.create({ baseURL: 'http://localhost:3001' });
+
   useEffect(() => {
-    switch (type) {
-      case 'userDonation':
-        Axios.get(`/donation/user/${id}`).then((res) => {
-          res.data.forEach((obj) => (obj.User = false));
-          setArrayToRender(res.data);
-        });
-        break;
-      case 'userService':
-        Axios.get(`/service/user/${id}`).then((res) => {
-          res.data.forEach((obj) => (obj.User = false));
-          setArrayToRender(res.data);
-        });
-        break;
-      case 'entityDonation':
-        Axios.get(`/donation/vdv/${id}`).then((res) => {
-          res.data.forEach((obj) => (obj.VdV = false));
-          setArrayToRender(res.data);
-        });
-        break;
-      case 'allDonation':
-        Axios.get(`/donation`).then((res) => {
-          res.data.forEach((obj) => (obj.VdV = false));
-          setArrayToRender(res.data);
-        });
-        break;
-      case 'feedback':
-        Axios.get(`/feedback`).then((res) => {
-          res.data.forEach((obj) => (obj.VdV = false));
-          setdeleteFeedbackIcon(true);
-          setArrayToRender(res.data);
-        });
-        break;
-      case 'allServices':
-        Axios.get(`/service`).then((res) => {
-          res.data.forEach((obj) => (obj.VdV = false));
-          setArrayToRender(res.data);
-        });
-        break;
-    }
-  }, []);
+    typeOfDataToRender(type, id, setArrayToRender, setdeleteFeedbackIcon);
+  }, [type, id]);
 
   const deleteFeedback = (id) => {
     Axios.delete(`/feedback/${id}/delete`).then(() => {
@@ -76,11 +40,13 @@ function DashboardScroll({ type, id }) {
         {arrayToRender?.map((item, i) => {
           let stars;
           if (item.rating) {
-            stars = new Array(item.rating).fill(<StarIcon />);
+            stars = new Array(item.rating)
+              .fill()
+              .map((_, index) => <StarIcon key={`star-${index}`} />);
           }
 
           return (
-            <div key={i}>
+            <div key={i + 94652}>
               <Flex direction="row">
                 <Card w="full">
                   <CardBody>

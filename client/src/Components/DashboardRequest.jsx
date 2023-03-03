@@ -58,9 +58,9 @@ function DashboardRequest() {
     });
   };
 
-  const requestRender = (req) => {
+  const requestRender = (req, i) => {
     return (
-      <AccordionItem>
+      <AccordionItem key={i + 5648}>
         <h2>
           <AccordionButton>
             <Box as="span" flex="1" textAlign="left" fontWeight="bold">
@@ -105,8 +105,8 @@ function DashboardRequest() {
           {req.name && <p>Materiales: </p>}
           {req.Materials && (
             <>
-              {req.Materials.map((mat) => (
-                <p>{mat.name}</p>
+              {req.Materials.map((mat, i) => (
+                <p key={`${i + 1673}`}>{mat.name}</p>
               ))}
               <br />
             </>
@@ -141,7 +141,7 @@ function DashboardRequest() {
   };
   return (
     <Accordion w="40vw">
-      {requestArray?.map((req) => requestRender(req))}
+      {requestArray?.map((req, i) => requestRender(req, i))}
     </Accordion>
   );
 }

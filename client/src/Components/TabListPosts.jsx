@@ -41,7 +41,7 @@ function TabListPosts() {
 
   function renderUrlPost(url, id) {
     return (
-      <TabPanel>
+      <TabPanel key={id}>
         <Flex direction="row">
           {!txtOrInput && <Text width="30vw">{url}</Text>}
           {txtOrInput && (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, useColorMode } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import MarkerInfo from '../Components/MarkerInfo';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,7 +11,6 @@ const containerStyle = {
   width: '99vw',
   height: '100vh',
 };
-import { Logeduser } from '../../src/redux/actions/acountActions';
 
 const Map = () => {
   const dispatch = useDispatch();
@@ -24,11 +23,7 @@ const Map = () => {
   );
 
   //const { colorMode } = useColorMode();
-  let userData = localStorage.getItem('LogedUser');
   useEffect(() => {
-    if (userData) {
-      dispatch(Logeduser());
-    }
     dispatch(fetchEntities());
     dispatch(getMaterials());
     filters = entities;

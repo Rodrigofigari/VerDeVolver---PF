@@ -17,12 +17,12 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  InputRightElement,
   Stack,
   StackDivider,
   Text,
   Textarea,
   VStack,
+  useToast,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
@@ -31,23 +31,24 @@ import {
   getEntityById,
   getEntityFeedbacks,
 } from '../redux/actions/entitiesActions';
-import { Logeduser } from '../../src/redux/actions/acountActions';
 import CreateRating from '../Components/CreateRating';
 
 const EntityDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const toast = useToast();
 
-  let userData = localStorage.getItem('LogedUser');
   useEffect(() => {
-    if (userData) {
-      dispatch(Logeduser());
-    }
     dispatch(getEntityById(id));
     dispatch(getEntityFeedbacks(id));
   }, [id]);
 
   const { entity, feedbacks } = useSelector((state) => state.entitiesReducer);
+  const { acount } = useSelector((state) => state.acountReducer);
+
+  //borra dp 
+  console.log('estadoFeedbacks', feedbacks)
+  //
 
   if (!entity || !feedbacks) return <PropagateLoader color="#1c5738" />;
 
@@ -63,46 +64,78 @@ const EntityDetail = () => {
   };
 
   const handleDonate = () => {
-    let userData = JSON.parse(localStorage.getItem('LogedUser'));
+    const userId = acount.id;
     if (inputMonto) {
-      if (!userData) {
+      if (!userId) {
         navigate('/login');
-        alert('Debes iniciar sesión para donar');
-        throw Error('Debes iniciar sesión para donar');
+        toast({
+          title: 'Error',
+          description: 'Debes iniciar sesión para poder donar',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
       }
       try {
         axios
           .post('http://localhost:3001/donation', {
             VdVId: id,
             amount: inputMonto,
-            UserId: userData.id,
+            UserId: userId 
           })
           .then((res) => (window.location.href = res.data.body.init_point));
       } catch (error) {
         res.status(400).send(error);
       }
     } else {
-      alert('ingrese monto');
+      toast({
+        title: 'Warning',
+        description: 'Debes ingresar un monto',
+        status: 'warning',
+        duration: 1500,
+        isClosable: true,
+      });
     }
   };
 
   const handleComment = async (event) => {
-    let userData = JSON.parse(localStorage.getItem('LogedUser'));
-    if (!userData) {
+    const userId = acount.id;
+    if (!userId) {
       navigate('/login');
-      alert('Debes iniciar sesión para poder dejar tu reseña');
-      throw Error('Debes iniciar sesión para poder dejar tu reseña');
+        toast({
+          title: 'Error',
+          description: 'Debes iniciar sesión para poder dejar tu reseña',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
     }
-    if (inputReview && userData) {
+    if (!inputReview) {
+        toast({
+          title: 'Error',
+          description: 'Debes elegir una puntuación y escribir un comentario',
+          status: 'error',
+          duration: 1500,
+          isClosable: true,
+        });
+    }
+    if (inputReview && userId) {
       try {
         await axios.post('http://localhost:3001/feedback/create', {
           comment: inputReview,
           rating: stars,
-          UserId: userData.id,
+          UserId: userId,
           VdVId: id,
         });
-        alert('Creacion de comentario exitosa!');
         location.reload();
+        toast({
+          title: 'Éxito',
+          description: 'Creación de reseña exitosa',
+          status: 'success',
+          duration: 1500,
+          isClosable: true,
+        });
+        
       } catch (error) {
         throw Error(error.message);
       }
@@ -150,12 +183,16 @@ const EntityDetail = () => {
           >
             {feedbacks?.map(({ User, comment, rating }) => (
               <Box key={User + comment}>
-                <HStack>
-                  <Avatar src={User.image} name={User.name} size="sm" />
+                <HStack spacing='1rem'>
+                {
+                  (User.image == null)? <Avatar name={User.name}  size="sm" />
+                  : <Avatar src={User.image}  size="sm" />
+                }
+                
+                  <Text>{User.name}</Text>
                   <RankingStars stars={rating} />
                 </HStack>
                 <Text>{comment}</Text>
-                {console.log(User.name)}
               </Box>
             ))}
           </VStack>

@@ -25,7 +25,6 @@ const Navbar = () => {
       bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
       justifyContent="space-between"
       alignItems="center"
-      mb="1rem"
       pr="1rem"
     >
       <Link as={ReachLink} to="/home">

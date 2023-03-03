@@ -10,7 +10,7 @@ import {
   CardBody,
   Textarea,
 } from '@chakra-ui/react';
-import OverflowScroll from '../../Components/OverflowScroll';
+import OverflowScroll from '../../Components/OverflowScroll/OverflowScroll';
 import InfoCardInput from '../../Components/InforCardInput';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';

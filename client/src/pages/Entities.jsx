@@ -12,7 +12,6 @@ import {
 } from '../redux/actions/entitiesActions';
 import { Button } from '@chakra-ui/react';
 import Paginated from '../Components/Paginated';
-import { Logeduser } from '../../src/redux/actions/acountActions';
 
 const Entities = () => {
   const dispatch = useDispatch();
@@ -24,6 +23,7 @@ const Entities = () => {
   const { entities, isLoading, filteredEntities } = useSelector(
     (state) => state.entitiesReducer
   );
+  const { acount } = useSelector((state) => state.acountReducer);
 
   function handleClick(e) {
     e.preventDefault();
@@ -35,12 +35,8 @@ const Entities = () => {
     setPage(1);
     setSearch('');
   }
-  let userData = localStorage.getItem('LogedUser');
 
   useEffect(() => {
-    if (userData) {
-      dispatch(Logeduser());
-    }
     dispatch(fetchEntities());
     dispatch(getMaterials());
     filters = entities;
@@ -89,7 +85,7 @@ const Entities = () => {
                 ?.slice((page - 1) * byPage, (page - 1) * byPage + byPage)
                 .map((e) => {
                   if (e.status === 'Active') {
-                    return <EntityCard key={e.id} entity={e} />;
+                    return <EntityCard key={e.id} entity={e} acount={acount}/>;
                   }
                 })
             )}
