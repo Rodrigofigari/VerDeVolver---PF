@@ -13,6 +13,8 @@ import {
   Heading,
   Grid,
   useToast,
+  Text,
+  useColorMode,
 } from '@chakra-ui/react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import PostsCarousel from '../Components/PostsCarousel';
@@ -68,62 +70,77 @@ const Home = () => {
       });
     }
   };
+  const { colorMode } = useColorMode();
 
   return (
-    <Box justify="center" align="center" mt='1rem'>
-      <Heading
-        as="h1"
-        size="l"
-        bg="#2F855A"
-        w="70%"
-        h="6.2rem"
-        color="white"
-        padding="1.5%"
-        borderRadius="md"
-        fontFamily="sans-serif"
-        textAlign={'center'}
+    <Box
+      align="center"
+      bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
+      padding="1rem"
+    >
+      <Box
+        justify="center"
+        align="center"
+        mb="0.8rem"
+        p="0.7rem"
+        bg={colorMode === 'light' ? '#F5F2EB' : '#2c835b'}
       >
-        Te brindamos información sobre los distintos lugares dedicados al
-        reciclaje en todo el país. Encontrá los más cercanos y hacé que tu
-        experiencia de gestión de residuos sea mucho más fácil. ¡Gracias por
-        cuidar el planeta junto a nosotrxs!
-      </Heading>
-      <Stack p={'4'}>
-        <HStack>
-          <Select
-            placeholder="Colabora con el punto de reciclaje que te haya ayudado.."
-            onChange={handleInputs}
-            name="entity"
-          >
-            {entities?.map(({ id, name }) => (
-              <option value={id} key={id}>
-                {name}
-              </option>
-            ))}
-          </Select>
-          <InputGroup>
-            <InputLeftElement children={<MdOutlineAttachMoney />} />
-            <Input
-              name="amount"
-              placeholder="Monto"
-              type="number"
+        <Text
+          bg={colorMode === 'light' ? '#2c835b' : '#212933'}
+          h="7rem"
+          color="white"
+          padding="0.8rem"
+          borderRadius="md"
+          textAlign={'center'}
+          align="center"
+          width="50vw"
+          m="0.7rem"
+          fontSize="xl"
+          fontFamily="lato"
+        >
+          Te brindamos información sobre los distintos lugares dedicados al
+          reciclaje en todo el país. Encontrá los más cercanos y hacé que tu
+          experiencia de gestión de residuos sea mucho más fácil. ¡Gracias por
+          cuidar el planeta junto a nosotrxs!
+        </Text>
+        <Stack p={'4'}>
+          <HStack>
+            <Select
+              placeholder="Colabora con el punto de reciclaje que te haya ayudado.."
               onChange={handleInputs}
-            />
-          </InputGroup>
-        </HStack>
-        <Grid placeItems="center">
-          <Button
-            color="vdv.main"
-            colorScheme="green"
-            width="full"
-            onClick={handleDonate}
-          >
-            Donar
-          </Button>
-        </Grid>
-      </Stack>
+              name="entity"
+            >
+              {entities?.map(({ id, name }) => (
+                <option value={id} key={id}>
+                  {name}
+                </option>
+              ))}
+            </Select>
+            <InputGroup>
+              <InputLeftElement children={<MdOutlineAttachMoney />} />
+              <Input
+                name="amount"
+                placeholder="Monto"
+                type="number"
+                onChange={handleInputs}
+              />
+            </InputGroup>
+          </HStack>
+          <Grid placeItems="center">
+            <Button
+              color="vdv.main"
+              colorScheme="green"
+              width="full"
+              onClick={handleDonate}
+              mt="0.3rem"
+            >
+              Donar
+            </Button>
+          </Grid>
+        </Stack>
 
-      <PostsCarousel />
+        <PostsCarousel />
+      </Box>
     </Box>
   );
 };

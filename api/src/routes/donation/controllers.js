@@ -6,6 +6,10 @@
 // failure: 'https://ver-de-volver-pf.vercel.app/',
 
 const { Donation, User, VdV } = require('../../db.js');
+const { sendEmail } = require('../../services/email');
+const {
+  htmlDonationOkEmailTemplate,
+} = require('../../services/email/templates/templateUsers.js');
 
 async function chargeDbDonation() {
   const bulkCreateDonations = await Donation.bulkCreate([
@@ -19,7 +23,6 @@ async function chargeDbDonation() {
 
   return bulkCreateDonations;
 }
-
 
 const createDonation = async (body) => {
   const { amount, UserId, VdVId } = body;
@@ -37,6 +40,7 @@ const createDonation = async (body) => {
     );
 
   const { name, img } = checkVdvs[0].dataValues;
+  const userDetail = checkUsers[0].dataValues;
 
   let preference = {
     items: [
@@ -55,7 +59,7 @@ const createDonation = async (body) => {
       pending: '',
     },
     auto_return: 'approved',
-    binary_mode: true, 
+    binary_mode: true,
   };
 
   const newDonation = await Donation.create({
@@ -64,8 +68,13 @@ const createDonation = async (body) => {
     VdVId,
   });
 
+  sendEmail(
+    userDetail.mail,
+    `Confirmacion de donación a la entidad ${name}`,
+    htmlDonationOkEmailTemplate(userDetail.name, name)
+  );
+
   return preference;
-  
 };
 
 const getAll = async () => {
