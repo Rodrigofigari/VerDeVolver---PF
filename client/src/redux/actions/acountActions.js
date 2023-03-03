@@ -47,22 +47,24 @@ export const authAcountLocal = ({ mail, password, keepLogged }) => {
 export const LogedUser = () => {
   return async function (dispatch) {
     try {
-      const { mail, token } = getLocalAcount() ?? getSessionAcount();
+      const user = getLocalAcount() ?? getSessionAcount();
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
+      if (user) {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
 
-      const res = await axios.get(
-        `http://localhost:3001/login?mail=${mail}`,
-        config
-      );
+        const res = await axios.get(
+          `http://localhost:3001/login?mail=${mail}`,
+          config
+        );
 
-      const user = res.data;
+        const userData = res.data;
 
-      return dispatch({ type: LOGED_USER, payload: user });
+        return dispatch({ type: LOGED_USER, payload: userData });
+      }
     } catch (err) {
       console.log(err);
     }
