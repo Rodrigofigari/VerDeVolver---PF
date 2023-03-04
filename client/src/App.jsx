@@ -33,32 +33,30 @@ const App = () => {
   }, []);
 
   return (
-    <div style={{ minHeight: '100vh' }}>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="*" element={<NotFound />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/map" element={<Map />} />
-          <Route path="/services" element={<Service />} />
-          <Route path="/entities" element={<Entities />} />
-          <Route path="/entitie/:id" element={<EntitieDetail />} />
-          <Route path="/beVdV" element={<SingUpEntitie />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/login/:googleId" element={<Login />} />
-          <Route path="/singup" element={<SingUp />} />
-          <Route path="/userprofile" element={<UserProfile />} />
-          <Route path="/entityprofile/:id" element={<EntityProfile />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-        <ChatBox />
-        <ColorModeSwitcher />
-        <Footer />
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/map" element={<Map />} />
+        <Route path="/services" element={<Service />} />
+        <Route path="/entities" element={<Entities />} />
+        <Route path="/entitie/:id" element={<EntitieDetail />} />
+        <Route path="/beVdV" element={<SingUpEntitie />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/login/:googleId" element={<Login />} />
+        <Route path="/singup" element={<SingUp />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/entityprofile" element={<EntityProfile />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+      <ChatBox />
+      <ColorModeSwitcher />
+      <Footer />
+    </BrowserRouter>
   );
 };
 

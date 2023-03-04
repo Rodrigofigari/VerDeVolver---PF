@@ -299,7 +299,16 @@ async function chargeDbRoles() {
 //2
 async function chargeDbUsers() {
   const role = await Role.findByPk(1);
+  const adminRole = await Role.findByPk(2);
   const bulkCreateUsers = await User.bulkCreate([
+    {
+      name: 'admin',
+      last_name: 'admin',
+      mail: 'admin@verdevolver.com',
+      password: 'admin',
+      address: 'admin',
+      RoleId: adminRole.id,
+    },
     {
       name: 'Nathan',
       last_name: 'Sebhastian',
@@ -307,7 +316,8 @@ async function chargeDbUsers() {
       password: '12345',
       address: 'calle 10',
       RoleId: role.id,
-      image: 'https://res.cloudinary.com/verdevolver/image/upload/v1677727979/images/rxsjmrsq2wqrzfiw44tt.jpg'
+      image:
+        'https://res.cloudinary.com/verdevolver/image/upload/v1677727979/images/rxsjmrsq2wqrzfiw44tt.jpg',
     },
     {
       name: 'Jack',
@@ -398,14 +408,34 @@ const chargeDbVdVs = (array) => {
 const chargeDbFeedback = async () => {
   try {
     const bulkCreateFeedbacks = await Feedback.bulkCreate([
-      { comment: 'Muy malo, me trataron re mal', rating: '1', UserId: '1', VdVId: '1' },
-      { comment: 'Muy bueno. Mejoraron su atencion al cliente', rating: '5', UserId: '1', VdVId: '1' },
-      { comment: 'Muy bueno, me encanto', rating: '5', UserId: '1', VdVId: '2' },
+      {
+        comment: 'Muy malo, me trataron re mal',
+        rating: '1',
+        UserId: '1',
+        VdVId: '1',
+      },
+      {
+        comment: 'Muy bueno. Mejoraron su atencion al cliente',
+        rating: '5',
+        UserId: '1',
+        VdVId: '1',
+      },
+      {
+        comment: 'Muy bueno, me encanto',
+        rating: '5',
+        UserId: '1',
+        VdVId: '2',
+      },
       { comment: 'Muy malo', rating: '1', UserId: '2', VdVId: '1' },
       { comment: 'Horrible todo', rating: '1', UserId: '3', VdVId: '3' },
       { comment: 'Super bien toy feliz', rating: '4', UserId: '4', VdVId: '4' },
       { comment: 'Me encanto todo', rating: '5', UserId: '1', VdVId: '3' },
-      { comment: 'Amoooo te atienden super bien, no tengo ninguna queja', rating: '5', UserId: '1', VdVId: '5' },
+      {
+        comment: 'Amoooo te atienden super bien, no tengo ninguna queja',
+        rating: '5',
+        UserId: '1',
+        VdVId: '5',
+      },
     ]);
 
     return bulkCreateFeedbacks;

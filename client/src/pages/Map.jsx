@@ -72,11 +72,11 @@ const Map = () => {
             });
             setZoom(13);
           }}
-          style={autocompleteStyle}
           options={{
             types: ['address'],
             componentRestrictions: { country: 'ar' },
           }}
+          style={autocompleteStyle}
         />
       </Box>
 
@@ -111,9 +111,10 @@ export default Map;
 
 const autocompleteStyle = {
   width: '100%',
-  height: '40px',
-  padding: '10px',
+  padding: '0.5rem',
   border: '1px solid gray',
   borderRadius: '4px',
+  background: 'none',
+  outline: 'none',
   fontSize: '20px',
 };
