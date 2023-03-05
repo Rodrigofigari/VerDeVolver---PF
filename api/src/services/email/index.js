@@ -34,7 +34,8 @@ const sendEmail = (userEmail, subject, html) => {
     },
     (error, info) => {
       if (error) {
-        throw Error('An error has ocurred');
+        console.log('erroir::', error);
+        throw Error('An error has ocurred', error);
       } else {
         console.log('Email sent: ', info.response);
       }

@@ -152,7 +152,7 @@ const Login = () => {
       <Text textAlign={'center'}>
         ¿Necesitas una cuenta? <Link to="/singup">Registrate</Link>
       </Text>
-      <Box height={'10rem'}></Box>
+      <Box height={'30rem'}></Box>
     </Box>
   );
 };

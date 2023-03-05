@@ -36,36 +36,40 @@ const setDataToRender = (
 const userSearchFeedback = (event, setFeedbackType, setFeedbackId) => {
   if (event.target.value === 'none') {
     setFeedbackType('feedback');
+    setFeedbackId((prevState) => ['all', prevState[1]]);
   } else {
-    setFeedbackType('userFeedback');
-    setFeedbackId(event.target.value);
+    setFeedbackType('feedback');
+    setFeedbackId((prevState) => [event.target.value, prevState[1]]);
   }
 };
 
 const vdvSearchFeedback = (event, setFeedbackType, setFeedbackId) => {
   if (event.target.value === 'none') {
     setFeedbackType('feedback');
+    setFeedbackId((prevState) => [prevState[0], 'all']);
   } else {
-    setFeedbackType('vdvFeedback');
-    setFeedbackId(event.target.value);
+    setFeedbackType('feedback');
+    setFeedbackId((prevState) => [prevState[0], event.target.value]);
   }
 };
 
 const userSearchDonation = (event, setDonationType, setDonationId) => {
   if (event.target.value === 'none') {
     setDonationType('donation');
+    setDonationId((prevState) => ['all', prevState[1]]);
   } else {
-    setDonationType('userDonation');
-    setDonationId(event.target.value);
+    setDonationType('donation');
+    setDonationId((prevState) => [event.target.value, prevState[1]]);
   }
 };
 
 const vdvSearchDonation = (event, setDonationType, setDonationId) => {
   if (event.target.value === 'none') {
     setDonationType('donation');
+    setDonationId((prevState) => [prevState[0], 'all']);
   } else {
-    setDonationType('vdvDonation');
-    setDonationId(event.target.value);
+    setDonationType('donation');
+    setDonationId((prevState) => [prevState[0], event.target.value]);
   }
 };
 

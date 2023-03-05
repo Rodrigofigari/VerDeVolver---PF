@@ -6,10 +6,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 import Map from './pages/Map';
-import Service from './pages/Service';
 import Entities from './pages/Entities';
 import EntitieDetail from '../src/pages/EntitieDetail';
-import SingUpEntitie from './pages/SignUpEntities/SingUpEntitie';
 import Login from './Components/Login';
 import UserProfile from './pages/userProfile/UserProfile';
 import EntityProfile from './pages/entityProfile/EntityProfile';
@@ -22,6 +20,7 @@ import ColorModeSwitcher from './Components/ColorModeSwitcher';
 import Footer from './Components/Footer';
 import ChatBox from './components/ChatBox';
 import { useSelector } from 'react-redux';
+import SingUpEntitie from './pages/SignUpEntities/SingUpEntitie';
 
 const App = () => {
   const { acount } = useSelector((state) => state.acountReducer);
@@ -41,7 +40,6 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/map" element={<Map />} />
-          <Route path="/services" element={<Service />} />
           <Route path="/entities" element={<Entities />} />
           <Route path="/entitie/:id" element={<EntitieDetail />} />
           <Route path="/beVdV" element={<SingUpEntitie />} />

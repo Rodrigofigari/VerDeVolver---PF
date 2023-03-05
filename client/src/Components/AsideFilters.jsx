@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { VStack, Select, Badge } from '@chakra-ui/react';
+import { VStack, Select, Badge, useColorMode } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   filterEntitiesByMaterial,
@@ -8,6 +8,7 @@ import {
 
 const AsideFilters = ({ filters, setPage, setInput }) => {
   const dispatch = useDispatch();
+  const { colorMode } = useColorMode();
 
   const { materials, listOfMaterialsToFilterState } = useSelector(
     (state) => state.entitiesReducer
@@ -63,7 +64,10 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
     <VStack>
       <Select
         id="select_materials"
+        borderWidth="0.2rem"
+        borderColor="gray.300"
         placeholder="Selecciona un material"
+        bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
         //width="-moz-fit-content"
         width="14vw"
         onChange={(e) => handleClikMaterials(e)}
@@ -83,6 +87,9 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
       })}
       <Select
         placeholder="Puntuación"
+        borderWidth="0.2rem"
+        borderColor="gray.300"
+        bg={colorMode === 'light' ? '#F5F2EB' : '#2D3748'}
         onClick={(e) => {
           console.log(e.target.value);
           if (
@@ -94,7 +101,6 @@ const AsideFilters = ({ filters, setPage, setInput }) => {
         }}
         //width="-moz-fit-content"
         width="14vw"
-        
       >
         <option value="Ascendente">Ascendente</option>
         <option value="Descendente">Descendente</option>

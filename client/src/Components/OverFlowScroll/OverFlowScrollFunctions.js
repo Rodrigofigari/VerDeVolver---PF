@@ -8,59 +8,46 @@ const typeOfDataToRender = (
   setdeleteFeedbackIcon
 ) => {
   switch (type) {
-    case 'userDonation':
-      Axios.get(`/donation/user/${id}`).then((res) => {
-        res.data.forEach((obj) => (obj.User = false));
-        setArrayToRender(res.data);
-      });
-      break;
     case 'userService':
       Axios.get(`/service/user/${id}`).then((res) => {
         res.data.forEach((obj) => (obj.User = false));
         setArrayToRender(res.data);
       });
       break;
-    case 'entityDonation':
-      Axios.get(`/donation/vdv/${id}`).then((res) => {
-        res.data.forEach((obj) => (obj.VdV = false));
-        setArrayToRender(res.data);
-      });
-      break;
     case 'donation':
-      Axios.get(`/donation`).then((res) => {
-        res.data.forEach((obj) => (obj.VdV = false));
-        setArrayToRender(res.data);
-      });
-      break;
-    case 'userDonation':
-      Axios.get(`/donation/user/${id}`).then((res) => {
+      Promise.all([
+        id[0] === 'all'
+          ? Axios.get('/donation')
+          : Axios.get(`/donation/user/${id[0]}`),
+        id[1] === 'all'
+          ? Axios.get('/donation')
+          : Axios.get(`/donation/vdv/${id[1]}`),
+      ]).then(([res1, res2]) => {
+        const render = [res1.data, res2.data];
+        const toRender = render[0].filter((obj1) =>
+          render[1].some((obj2) => obj2.id === obj1.id)
+        );
         setdeleteFeedbackIcon(true);
-        setArrayToRender(res.data);
-      });
-      break;
-    case 'vdvDonation':
-      Axios.get(`/donation/vdv/${id}`).then((res) => {
-        setdeleteFeedbackIcon(true);
-        setArrayToRender(res.data);
+        setArrayToRender(toRender);
       });
       break;
     case 'feedback':
-      Axios.get(`/feedback`).then((res) => {
+      Promise.all([
+        id[0] === 'all'
+          ? Axios.get('/feedback')
+          : Axios.get(`/feedback/user/${id[0]}`),
+        id[1] === 'all'
+          ? Axios.get('/feedback')
+          : Axios.get(`/feedback/vdv/${id[1]}`),
+      ]).then(([res1, res2]) => {
+        const render = [res1.data, res2.data];
+        const toRender = render[0].filter((obj1) =>
+          render[1].some((obj2) => obj2.id === obj1.id)
+        );
         setdeleteFeedbackIcon(true);
-        setArrayToRender(res.data);
+        setArrayToRender(toRender);
       });
-      break;
-    case 'userFeedback':
-      Axios.get(`/feedback/user/${id}`).then((res) => {
-        setdeleteFeedbackIcon(true);
-        setArrayToRender(res.data);
-      });
-      break;
-    case 'vdvFeedback':
-      Axios.get(`/feedback/vdv/${id}`).then((res) => {
-        setdeleteFeedbackIcon(true);
-        setArrayToRender(res.data);
-      });
+
       break;
     case 'allServices':
       Axios.get(`/service`).then((res) => {

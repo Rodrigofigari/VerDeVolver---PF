@@ -10,6 +10,8 @@ async function chargeDbRoles() {
 }
 
 const createRole = async (role) => {
+  if (!role) throw Error('Debes ingresar un rol'); 
+
   const newRole = await Role.create({
     name: role,
   });
@@ -17,6 +19,8 @@ const createRole = async (role) => {
 };
 
 const deleteRole = async (name) => {
+  if (!name) throw Error('Debes ingresar un nombre'); 
+
   const roleDelete = await Role.destroy({
     where: { name: name },
   });

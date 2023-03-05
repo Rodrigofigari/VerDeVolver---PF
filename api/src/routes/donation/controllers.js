@@ -27,6 +27,8 @@ async function chargeDbDonation() {
 const createDonation = async (body) => {
   const { amount, UserId, VdVId } = body;
 
+  if(!amount || !UserId || !VdVId) throw Error('Debes ingresar todos los campos obligatorios'); 
+
   const checkUsers = await User.findAll({
     where: { id: UserId },
   });
@@ -81,7 +83,6 @@ const createDonation = async (body) => {
 };
 
 const getAll = async () => {
-  try {
     const result = Donation.findAll({
       include: [
         { model: User, attributes: ['name', 'last_name', 'image'] },
@@ -90,12 +91,11 @@ const getAll = async () => {
     });
 
     return result;
-  } catch (error) {
-    throw Error('Un error ocurrio. No se pueden traer las donaciones');
-  }
 };
 
 const updateDonations = async (id) => {
+  if(!id) throw Error('Debes ingresar un id'); 
+
   await Donation.update(
     {
       status: 'Delivered',
@@ -113,7 +113,6 @@ const updateDonations = async (id) => {
 };
 
 const getDonationsById = async (id) => {
-  try {
     if (!id) throw Error('Debes ingresar un id');
 
     const donation = await Donation.findByPk(id, {
@@ -127,13 +126,9 @@ const getDonationsById = async (id) => {
 
     const result = await Donation.findByPk(id);
     return result;
-  } catch (error) {
-    throw Error('Ocurrio un error. No se encuentra la donacion');
-  }
 };
 
 const getByUserId = async (id) => {
-  try {
     if (!id) throw Error('Debes ingresar un id');
 
     const checkuser = await User.findAll({ where: { id: id } });
@@ -148,16 +143,12 @@ const getByUserId = async (id) => {
         { model: VdV, attributes: ['name', 'img'] },
       ],
     });
-    if (!result) throw Error(`La donacion con id ${id} no fue encontrada`);
+    if (!result) throw Error(`No fue posible en contrar donaciones del usuario con id ${id}`);
 
     return result;
-  } catch (error) {
-    throw Error({ error: error.message });
-  }
 };
 
 const getByVdVId = async (id) => {
-  try {
     if (!id) throw Error('Debes ingresar un id');
 
     const checkVdV = await VdV.findAll({ where: { id: id } });
@@ -172,12 +163,9 @@ const getByVdVId = async (id) => {
         { model: VdV, attributes: ['name', 'img'] },
       ],
     });
-    if (!result) throw Error(`La entidad con id ${id} no fue encontrada`);
+    if (!result) throw Error(`No fue posible encontrar donaciones para la entidad de id ${id}`);
 
     return result;
-  } catch (error) {
-    throw Error({ error: error.message });
-  }
 };
 
 module.exports = {

@@ -1,8 +1,9 @@
 const { User, Role } = require('../../db.js');
 
 const findUser = async (mail) => {
-  try {
-    const usuario = await User.findOne({
+  if(!mail) throw Error('Debes ingresar un mail'); 
+
+  const usuario = await User.findOne({
       where: { mail },
       include: [
         {
@@ -10,11 +11,11 @@ const findUser = async (mail) => {
           attributes: ['name'],
         },
       ],
-    });
-    return usuario;
-  } catch (error) {
-    console.log(error);
-  }
+  });
+  
+  if(!usuario) throw Error('No se encontraron usuarios con ese mail'); 
+
+  return usuario;
 };
 
 module.exports = {

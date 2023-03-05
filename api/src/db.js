@@ -52,14 +52,11 @@ Donation.belongsTo(User);
 VdV.hasMany(Donation);
 Donation.belongsTo(VdV);
 
-User.hasMany(Service);
-Service.belongsTo(User);
-
-VdV.hasMany(Service);
-Service.belongsTo(VdV);
-
 User.belongsTo(Role);
 Role.hasMany(User);
+
+VdV.belongsTo(Role);
+Role.hasMany(VdV);
 
 Material.belongsToMany(VdV, { through: 'Material_VdV' });
 VdV.belongsToMany(Material, { through: 'Material_VdV' });

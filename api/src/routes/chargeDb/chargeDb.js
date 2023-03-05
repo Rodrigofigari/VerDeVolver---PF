@@ -8,7 +8,6 @@ const {
   VdV,
   Feedback,
   Donation,
-  Service,
   Material,
 } = require('../../db.js');
 const pepe = [
@@ -19,11 +18,12 @@ const pepe = [
     /* password:"12345", */ address: 'calle 1',
     description:
       'Entidad privada cuya actividad se centra en mejorar la calidad de vida de las personas optimizando el aprovechamiento de recursos.',
-    cbu: '34567898777',
+    cbu: '345678987772356789121',
     lat: -34.1,
     lng: -68.2,
     materials: [1, 2], // este no se pasa a la creacion de la VdV , este dato se usa para relacionar las tablas
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Amigos de la Tierra',
@@ -32,11 +32,12 @@ const pepe = [
     /* password:"12345", */ address: 'calle 2',
     description:
       'Somos una asociación ecologista que fomenta el cambio local y global hacia una sociedad respetuosa con el medio ambiente, justa y solidaria.',
-    cbu: '23456788777',
+    cbu: '545670987772356789132',
     lat: -34.3,
     lng: -68.4,
     materials: [3, 4],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Greenpeace',
@@ -45,11 +46,12 @@ const pepe = [
     /* password:"12345", */ address: 'calle 3',
     description:
       'Organización ecologista y pacifista políticamente independiente.',
-    cbu: '0987698777',
+    cbu: '445670987772356789135',
     lat: -34.5,
     lng: -68.6,
     materials: [5, 6],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'DemoVerde',
@@ -58,11 +60,12 @@ const pepe = [
     /* password:"12345", */ address: 'calle 4',
     description:
       'ONG sin fines de lucro para la gestión de los recursos y los residuos',
-    cbu: '8976557898777',
+    cbu: '145670987772356789137',
     lat: -34.7,
     lng: -68.8,
     materials: [3, 4, 1, 2, 5, 6],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Reciclamos muchisimo',
@@ -71,11 +74,12 @@ const pepe = [
     /* password:"12345", */ address: 'calle 6',
     description:
       'Empresa gigante que va y busca todo lo que tires.Empresa gigante que va y busca todo lo que tires.Empresa gigante que va y busca todo lo que tires.',
-    cbu: '8976457198777',
+    cbu: '945670987772356789138',
     lat: -34.2,
     lng: -68.1,
     materials: [2, 5, 6, 7],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Verde que te quiero verde',
@@ -84,11 +88,11 @@ const pepe = [
     /* password:"12345", */ address: 'calle 6',
     description:
       'Somos una entidad recicladora que recicla cosas reciclables y las reciclamos',
-    cbu: '8176457198778',
     lat: -34.4,
     lng: -68.3,
     materials: [1],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Agua clara',
@@ -97,11 +101,11 @@ const pepe = [
     address: 'calle 6',
     description:
       'Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.Agarramos basura y la reciclamos.',
-    cbu: '8176418198771',
     lat: -34.6,
     lng: -68.5,
     materials: [3, 7, 8],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Tierra Verde',
@@ -110,11 +114,12 @@ const pepe = [
     address: 'calle 8',
     description:
       'Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.Recuperamos tierras y las reutilizamos.',
-    cbu: '2371043886125',
+    cbu: '245670987972356789194',
     lat: -34.8,
     lng: -68.7,
     materials: [3, 10, 11],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Aire Puro',
@@ -123,11 +128,12 @@ const pepe = [
     address: 'calle 5',
     description:
       'Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.Plantamos árboles para mejorar la calidad del aire.',
-    cbu: '8601946518597',
+    cbu: '745670987912356789175',
     lat: -34.1,
     lng: -68.9,
     materials: [1, 2, 9],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Fuego Nuevo',
@@ -136,11 +142,11 @@ const pepe = [
     address: 'calle 7',
     description:
       'Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.Transformamos residuos en energía.',
-    cbu: '5970583325760',
     lat: -34.2,
     lng: -68.8,
     materials: [1, 9, 11],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Luz Clara',
@@ -149,11 +155,11 @@ const pepe = [
     address: 'calle 10',
     description:
       'Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.Usamos energía renovable para iluminar la ciudad.',
-    cbu: '9747318960912',
     lat: -34.3,
     lng: -68.7,
     materials: [6, 7, 10],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Mar Limpio',
@@ -162,11 +168,12 @@ const pepe = [
     address: 'calle 3',
     description:
       'Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.Recogemos basura de la playa y la reciclamos.',
-    cbu: '5096842975055',
+    cbu: '845671987972356789185',
     lat: -34.6,
     lng: -68.3,
     materials: [3, 7, 8, 11],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Asociacionn de Jovenes Emprendedores',
@@ -175,11 +182,11 @@ const pepe = [
     address: 'calle 2',
     description:
       'Organización sin fines de lucro que busca impulsar el emprendimiento en jóvenes de bajos recursos.',
-    cbu: '87654321987',
     lat: -34.7,
     lng: -68.2,
     materials: [5, 7, 11],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Fundación para la Conservación del Medio Ambiente',
@@ -188,11 +195,12 @@ const pepe = [
     address: 'calle 3',
     description:
       'Fundación cuyo objetivo es la conservación y restauración de los ecosistemas del planeta.',
-    cbu: '65748392002',
+    cbu: '145671987872356789104',
     lat: -34.8,
     lng: -68.1,
     materials: [2, 10, 11],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Red de Bibliotecas Públicas',
@@ -201,11 +209,11 @@ const pepe = [
     address: 'calle 4',
     description:
       'Red de bibliotecas públicas que busca fomentar la lectura y el acceso a la cultura en comunidades marginadas.',
-    cbu: '29384756291',
     lat: -34.1,
     lng: -68.1,
     materials: [3, 4, 8, 9],
     status: 'Active',
+    RoleId: 4,
   },
   {
     name: 'Fundación para la Educación y el Desarrollo',
@@ -214,11 +222,12 @@ const pepe = [
     address: 'calle 5',
     description:
       'Organización que busca mejorar la calidad de vida de las personas a través de la educación y el desarrollo personal.',
-    cbu: '29837465748',
+    cbu: '145601987172356789155',
     lat: -34.2,
     lng: -68.2,
     materials: [3, 4, 10],
     status: 'Pending',
+    RoleId: 4,
   },
   {
     name: 'Asociación de Agricultores Familiares',
@@ -227,11 +236,11 @@ const pepe = [
     address: 'calle 6',
     description:
       'Asociación que busca promover y defender la agricultura familiar y la soberanía alimentaria.',
-    cbu: '83746592713',
     lat: -34.3,
     lng: -68.3,
     materials: [3, 4, 7],
     status: 'Pending',
+    RoleId: 4,
   },
   {
     name: 'Fundación para la Investigación Científica',
@@ -240,11 +249,12 @@ const pepe = [
     address: 'calle 7',
     description:
       'Fundación que financia investigaciones científicas en diferentes áreas del conocimiento.',
-    cbu: '28374659283',
+    cbu: '445601987472356789147',
     lat: -34.4,
     lng: -68.4,
     materials: [3, 4, 8, 9],
     status: 'Pending',
+    RoleId: 4,
   },
   {
     name: 'Asociación de Mujeres Empresarias',
@@ -253,11 +263,11 @@ const pepe = [
     address: 'calle 8',
     description:
       'Asociación que busca fomentar el emprendimiento y el liderazgo de las mujeres en el ámbito empresarial.',
-    cbu: '74658392011',
     lat: -34.5,
     lng: -68.5,
     materials: [1, 2, 9, 10],
     status: 'Pending',
+    RoleId: 4,
   },
   {
     name: 'Fundación para la Lucha contra el Cáncer',
@@ -266,11 +276,11 @@ const pepe = [
     address: 'calle 9',
     description:
       'Fundación que brinda apoyo a pacientes con cáncer y financia investigaciones para encontrar curas y tratamientos efectivos.',
-    cbu: '49583746582',
     lat: -34.6,
     lng: -68.6,
     materials: [4, 7, 8],
     status: 'Pending',
+    RoleId: 4,
   },
   {
     name: 'Asociación de Vecinos Unidos',
@@ -279,19 +289,22 @@ const pepe = [
     address: 'calle 10',
     description:
       'Asociación que busca mejorar la calidad de vida de los vecinos y promover la participación ciudadana en la gestión pública.',
-    cbu: '92837465722',
+    cbu: '645601987162356719152',
     lat: -34.7,
     lng: -68.7,
     materials: [5, 8, 11],
     status: 'Pending',
+    RoleId: 4,
   },
 ];
 
+//1
 async function chargeDbRoles() {
   const bulkCreateRoles = await Role.bulkCreate([
     { name: 'User' },
     { name: 'Admin' },
     { name: 'Owner' },
+    { name: 'Entity' },
   ]);
 
   return bulkCreateRoles;
@@ -333,6 +346,15 @@ async function chargeDbUsers() {
       address: 'calle 40',
       RoleId: role.id,
     },
+    {
+      name: 'Matias',
+      last_name: 'Serrano',
+      mail: 'mati@mail.com',
+      password: '12345',
+      address: 'calle 40',
+      RoleId: role.id,
+      image: 'https://res.cloudinary.com/verdevolver/image/upload/v1677854021/images/letjinjszswjgkb7waul.jpg'
+    },
   ]);
 
   return bulkCreateUsers;
@@ -369,9 +391,8 @@ const vdvCreate = async (body) => {
     lat,
     lng,
     status,
+    RoleId
   } = body;
-  if (!name || !img || !description || !mail || !address)
-    throw Error('Debes completar todos los campos obligatorios');
   const vdvCreate = await VdV.create({
     name,
     img,
@@ -382,6 +403,7 @@ const vdvCreate = async (body) => {
     lat,
     lng,
     status,
+    RoleId, 
   });
 
   await vdvCreate.addMaterials(materials);
@@ -432,19 +454,6 @@ async function chargeDbDonation() {
 }
 
 //7
-async function chargeDbServices() {
-  const bulkCreateServices = await Service.bulkCreate([
-    { amount: '5000', UserId: '1', VdVId: '1' },
-    { amount: '5000', UserId: '1', VdVId: '1' },
-    { amount: '5000', UserId: '1', VdVId: '1' },
-    { amount: '5000', UserId: '2', VdVId: '1' },
-    { amount: '5000', UserId: '3', VdVId: '3' },
-    { amount: '5000', UserId: '4', VdVId: '4' },
-  ]);
-
-  return bulkCreateServices;
-}
-
 const posts = [
   {
     url: 'https://www.instagram.com/p/CKTr02XgZMh/?utm_source=ig_web_copy_link',
@@ -459,7 +468,6 @@ const posts = [
     url: 'https://www.instagram.com/p/CHpyNNYDUKq/?utm_source=ig_web_copy_link',
   },
 ];
-
 async function chargeInstagramPosts() {
   posts.forEach(async (post) => {
     await postInsta(post.url);
@@ -481,8 +489,6 @@ router.post('/', async (req, res) => {
     if (!fifth) throw Error('Ocurrio un error durante la carga de feedbacks');
     const sixth = await chargeDbDonation();
     if (!sixth) throw Error('Ocurrio un error durante la carga de donaciones');
-    const seventh = await chargeDbServices();
-    if (!seventh) throw Error('Ocurrio un error durante la carga de servicios');
     await chargeInstagramPosts();
 
     res.status(200).send('Base de datos cargada.');

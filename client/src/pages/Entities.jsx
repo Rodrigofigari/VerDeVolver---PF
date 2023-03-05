@@ -10,12 +10,12 @@ import {
   getMaterials,
   listOfMaterialsToFilter,
 } from '../redux/actions/entitiesActions';
-import { Button } from '@chakra-ui/react';
+import { Button, useColorMode } from '@chakra-ui/react';
 import Paginated from '../Components/Paginated';
 
 const Entities = () => {
   const dispatch = useDispatch();
-
+  const { colorMode } = useColorMode();
   const [page, setPage] = useState(1);
   const [input, setInput] = useState(1);
   const [search, setSearch] = useState('');
@@ -51,7 +51,7 @@ const Entities = () => {
   const max = Math.ceil(numberEntitiesActives / byPage);
 
   return (
-    <VStack mx="1rem">
+    <VStack bg={colorMode === 'light' ? '#b4c4ac' : '#212933'} pr={'1rem'}>
       <SearchBar
         entities={entities}
         setPage={setPage}
@@ -60,6 +60,7 @@ const Entities = () => {
         setSearch={setSearch}
       />
       <Button
+        p={'1.2rem'}
         colorScheme="green"
         size="sm"
         onClick={(e) => {
@@ -85,7 +86,7 @@ const Entities = () => {
                 ?.slice((page - 1) * byPage, (page - 1) * byPage + byPage)
                 .map((e) => {
                   if (e.status === 'Active') {
-                    return <EntityCard key={e.id} entity={e} acount={acount}/>;
+                    return <EntityCard key={e.id} entity={e} acount={acount} />;
                   }
                 })
             )}

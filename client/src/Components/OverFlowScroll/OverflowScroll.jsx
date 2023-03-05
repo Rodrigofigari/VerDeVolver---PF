@@ -64,6 +64,9 @@ function DashboardScroll({ type, id }) {
                       {item.serviceType && `${item.serviceType} /`}
                       {item.content && item.content}
                     </Text>
+                    <Divider m="0.5rem" />
+                    {item.comment && item.comment}
+                    <Divider m="0.5rem" />
                     {item.rating && stars}
                   </CardBody>
                 </Card>

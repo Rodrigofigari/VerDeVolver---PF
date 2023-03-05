@@ -9,8 +9,8 @@ const ColorModeSwitcher = () => {
       icon={colorMode === 'light' ? <BiMoon /> : <BiSun />}
       onClick={toggleColorMode}
       pos="fixed"
-      bottom="0"
-      right="0"
+      bottom="4rem"
+      right="1rem"
       m="1rem"
     />
   );

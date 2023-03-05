@@ -34,7 +34,8 @@ const chargeDbFeedback = async () => {
 };
 
 const createFeedback = async (body) => {
-  try {
+  if(!body) throw Error('No se recibieron datos para procesar la petición'); 
+
     const { comment, rating, UserId, VdVId } = body;
 
     const checkUsers = await User.findAll({
@@ -55,13 +56,9 @@ const createFeedback = async (body) => {
     });
 
     return newFeedback;
-  } catch (error) {
-    throw Error('Ocurrio un error. No se pudo crear el feedback');
-  }
 };
 
 const getFeedbacks = async () => {
-  try {
     const feedbacksWUsersVdvData = await Feedback.findAll({
       include: [
         { model: User, attributes: ['name', 'last_name', 'image'] },
@@ -70,13 +67,10 @@ const getFeedbacks = async () => {
     });
 
     return feedbacksWUsersVdvData;
-  } catch (error) {
-    throw Error('Ocurrio un error. No se pudo traer los feedbacks');
-  }
 };
 
 const getFeedbacksById = async (id) => {
-  try {
+
     if (!id) throw Error('Debes ingresar un id');
 
     const feedback = Feedback.findByPk(id, {
@@ -89,13 +83,9 @@ const getFeedbacksById = async (id) => {
     if (!feedback) throw Error('El feedback no existe');
 
     return feedback;
-  } catch (error) {
-    throw Error('Ocurrio un error. No se pudo traer el feedback');
-  }
 };
 
 const getFeedbacksByUserId = async (id) => {
-  try {
     if (!id) throw Error('Debes ingresar un id');
 
     const checkuser = await User.findAll({ where: { id: id } });
@@ -118,13 +108,9 @@ const getFeedbacksByUserId = async (id) => {
       );
 
     return feedbackWUsersVdvData;
-  } catch (error) {
-    throw Error(error.message);
-  }
 };
 
 const getFeedbacksByVdVId = async (id) => {
-  try {
     if (!id) throw Error('Debes ingresar un id');
 
     const checkVdV = await VdV.findAll({ where: { id: id } });
@@ -147,36 +133,29 @@ const getFeedbacksByVdVId = async (id) => {
       );
 
     return feedbackWUsersVdvData;
-  } catch (error) {
-    throw Error(error.message);
-  }
 };
 
 const updateFeedback = async (id, comment, rating) => {
-  try {
-    if (!comment || !rating || !id) throw Error('Faltan datos');
 
-    const feedbackToUpdate = await Feedback.findAll({ where: { id: id } });
-    if (!feedbackToUpdate) throw Error('No existe un feedback con ese id');
+  if (!comment || !rating || !id) throw Error('Debes ingresar los datos obligatorios para procesar la petición');
 
-    await Feedback.update(
-      {
-        comment: comment,
-        rating: rating,
-      },
-      { where: { id: id } }
-    );
+  const feedbackToUpdate = await Feedback.findAll({ where: { id: id } });
+  if (!feedbackToUpdate) throw Error('No existe un feedback con ese id');
 
-    const updatedFeedback = await getFeedbacksById(id);
+  await Feedback.update(
+    {
+      comment: comment,
+      rating: rating,
+    },
+    { where: { id: id } }
+  );
 
-    return updatedFeedback;
-  } catch (error) {
-    throw Error({ error: error.message });
-  }
+  const updatedFeedback = await getFeedbacksById(id);
+
+  return updatedFeedback;
 };
 
 const deleteFeedback = async (id) => {
-  try {
     if (!id) throw Error('Debes ingresar un id');
 
     const feedbackToDelete = await Feedback.findAll({ where: { id: id } });
@@ -185,9 +164,6 @@ const deleteFeedback = async (id) => {
     const deleting = await Feedback.destroy({ where: { id: id } });
 
     return deleting;
-  } catch (error) {
-    throw Error({ error: error.message });
-  }
 };
 
 const getAllVdV = async () => {
@@ -196,6 +172,7 @@ const getAllVdV = async () => {
 };
 
 const mapeoDeIds = (array) => {
+  if(!array) throw Error('No se recibió array para mapear'); 
   const result = array.map(async (ele) => {
     return await getFeedbacksByVdVId(ele); 
   });

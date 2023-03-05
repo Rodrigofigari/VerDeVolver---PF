@@ -8,6 +8,8 @@ const {
 } = require('../../services/email/templates/templateContact');
 
 const postComments = async (name, mail, description) => {
+  if( !name || !mail || !description) throw Error('Debes completar los campos obligatorios para procesar la petición'); 
+
   await Contact.create({ name, mail, description });
 
   sendEmail(

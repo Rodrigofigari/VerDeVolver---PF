@@ -7,7 +7,7 @@ export const GET_USER_FEEDBACKS = 'GET_USER_FEEDBACKS';
 
 export const fetchUsers = () => {
   return async (dispatch) => {
-    const res = await axios.get();
+    const res = await axios.get('http://localhost:3001/user');
     const users = res.data;
 
     dispatch({ type: FETCH_USERS, payload: users });

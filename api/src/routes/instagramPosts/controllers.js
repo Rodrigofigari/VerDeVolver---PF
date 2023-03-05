@@ -1,6 +1,7 @@
 const { InstagramPosts } = require('../../db.js');
 
 const postInsta = async (url) => {
+  if(!url) throw Error('Debes ingresar una url'); 
   try {
     await InstagramPosts.create({ url });
   } catch (error) {
@@ -9,6 +10,9 @@ const postInsta = async (url) => {
 };
 
 const updateInsta = async ({ url, id }) => {
+  if(!id) throw Error('Debes ingresar un id');
+  if(!url) throw Error('Debes ingresar una url'); 
+
   try {
     const post = await InstagramPosts.findByPk(id);
     post.url = url;

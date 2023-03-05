@@ -97,11 +97,12 @@ const ChatBox = () => {
         <IconButton
           icon={<AiOutlineMessage />}
           pos="fixed"
-          bottom="0"
-          left="0"
+          left="1rem"
           m="1rem"
+          bottom="4rem"
         />
       </PopoverTrigger>
+
       <PopoverContent m="1rem">
         <PopoverHeader>Chat VDV</PopoverHeader>
         <PopoverCloseButton />

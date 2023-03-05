@@ -10,6 +10,7 @@ export const GET_MATERIALS = 'GET_MATERIALS';
 export const FILTER_ENTITIES_BY_MATERIAL = 'FILTER_ENTITIES_BY_MATERIAL';
 export const LIST_OF_MATERIALS_TO_FILTER = 'LIST_OF_MATERIALS_TO_FILTER';
 export const SORT_ENTITIES_BY_RANKING = 'SORT_ENTITIES_BY_RANKING';
+export const FILL_ENTITY_FORM = 'FILL_ENTITY_FORM';
 
 export const fetchEntities = () => {
   return async (dispatch) => {
@@ -48,7 +49,11 @@ export const getEntityFeedbacks = (id) => {
     dispatch({ type: GET_ENTITY_FEEDBACKS, payload: feedbacks });
   };
 };
-
+export const fillEntityForm = (form) => {
+  return (dispatch) => {
+    dispatch({ type: FILL_ENTITY_FORM, payload: form });
+  };
+};
 export const createNewEntity = (entity) => {
   return async function (dispatch) {
     try {
@@ -59,9 +64,6 @@ export const createNewEntity = (entity) => {
       );
       const message = res.data;
       dispatch({ type: CREATE_NEW_ENTITY, payload: message });
-      alert(
-        'Muchas gracias por completar tus datos! Nos pondremos en contacto vía email.'
-      );
     } catch (error) {
       alert(error.message);
       dispatch({ type: CREATE_NEW_ENTITY, payload: error.message });

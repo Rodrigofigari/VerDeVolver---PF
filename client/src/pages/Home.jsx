@@ -110,6 +110,8 @@ const Home = () => {
               placeholder="Colabora con el punto de reciclaje que te haya ayudado.."
               onChange={handleInputs}
               name="entity"
+              borderWidth="0.2rem"
+              borderColor="gray.300"
             >
               {entities?.map(({ id, name }) => (
                 <option value={id} key={id}>
@@ -120,6 +122,8 @@ const Home = () => {
             <InputGroup>
               <InputLeftElement children={<MdOutlineAttachMoney />} />
               <Input
+                borderWidth="0.2rem"
+                borderColor="gray.300"
                 name="amount"
                 placeholder="Monto"
                 type="number"
@@ -129,9 +133,10 @@ const Home = () => {
           </HStack>
           <Grid placeItems="center">
             <Button
+              //bg={colorMode === 'light' ? '#2c835b' : '#212933'}
               color="vdv.main"
               colorScheme="green"
-              width="full"
+              width="30%"
               onClick={handleDonate}
               mt="0.3rem"
             >

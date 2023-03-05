@@ -212,7 +212,7 @@ const SingUp = () => {
           <FormErrorMessage>{errors.image}</FormErrorMessage>
         )}
       </FormControl>
-      
+
       <Button onClick={handleSubmit}>Registrarse</Button>
 
       <IconButton
@@ -226,6 +226,7 @@ const SingUp = () => {
       <Text textAlign={'center'}>
         Ya estas registrado? <Link to="/login">Inicia sesión</Link>
       </Text>
+      <Box h={'25rem'}></Box>
     </Box>
   );
 };

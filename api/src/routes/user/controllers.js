@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Role, User } = require('../../db.js');
+const { Role, User, VdV } = require('../../db.js');
 const { verify } = require('jsonwebtoken');
 const {
   updatePassword,
@@ -46,9 +46,35 @@ async function chargeDbUsers() {
   return bulkCreateUsers;
 }
 
+const checkMail = async (mail) => {
+  if (!mail) throw Error ('Debes ingresar un mail'); 
+  
+  const userMail = await User.findOne({
+    where: { mail },
+  });
+
+  const vdvMail = await VdV.findOne({
+    where: { mail },
+  }); 
+
+  if ( vdvMail || userMail){
+    return false ; 
+  } 
+
+  return true ; 
+};
+
 const postUser = async (body) => {
-  console.log(body);
+  const { name, last_name, mail, password, image } = body;
+
+  const check = await checkMail(mail); 
+  if (check == false) throw Error('El mail ingresado ya pertenece a una cuenta'); 
+
+  if (!name || !last_name|| !mail || !password)
+    throw Error('Debes completar todos los campos obligatorios');
+
   const role = await Role.findByPk(1);
+  
   const existUser = await User.findOne({
     where: {
       mail: {
@@ -57,13 +83,13 @@ const postUser = async (body) => {
     },
   });
 
-  if (!existUser) {
+  if (existUser) throw Error(`El usuario con mail ${body.mail}, ya existe`); 
+  else{  
     const newUser = await User.create({
       name: body.name,
       last_name: body.last_name,
       mail: body.mail,
       password: body.password,
-      address: body.address,
       RoleId: role.id,
       image: body.image,
     });
@@ -80,14 +106,19 @@ const getAllUser = async () => {
       },
     ],
   });
+
+  if (!dbAll) throw Error('No fue posible encontrar ningun usuario en la base de datos');
+
   return dbAll;
 };
 
 const getByName = async (name) => {
+  if (!name) throw Error('Debes ingresar un nombre'); 
+
   const byName = await User.findAll({
     where: {
       name: {
-        [Op.iLike]: name,
+        [Op.iLike]: `%${name}%`,
       },
     },
     include: [
@@ -98,10 +129,14 @@ const getByName = async (name) => {
     ],
   });
 
+  if (!byName) throw Error(`No fue posible encontrar usuarios con el nombre ${name}`)
+
   return byName;
 };
 
 const findId = async (id) => {
+  if (!id) throw Error ('Debes ingresar un id'); 
+
   const byPk = await User.findByPk(id, {
     include: [
       {
@@ -111,10 +146,14 @@ const findId = async (id) => {
     ],
   });
 
+  if (!byPk) throw Error (`No fue posible encontrar un usuario con id ${id}`)
+
   return byPk;
 };
 
 const updateUser = async (userToUD, id) => {
+  if (!id) throw Error('Debes ingresar un id');
+
   await User.update(userToUD, {
     where: { id },
   });
@@ -122,6 +161,8 @@ const updateUser = async (userToUD, id) => {
 
 const modifyUserRole = async (id) => {
   try {
+    if (!id) throw Error('Debes ingresar un id'); 
+    //3 es owner
     await User.update({ RoleId: 3 }, { where: { id } });
 
     const userModified = await findId(id);
@@ -133,13 +174,13 @@ const modifyUserRole = async (id) => {
 
 const deleteUser = async (id) => {
   try {
-    if (!id) throw Error('No se ha suministrado ningun id');
+    if (!id) throw Error('Debes ingresar un id');
 
     const findById = await User.findAll({
       where: { id },
     });
 
-    if (!findById) throw Error(`El id ${id} no fue encontrado`);
+    if (!findById) throw Error(`El usuario con id ${id} no fue encontrado`);
 
     await User.destroy({
       where: { id },
@@ -150,9 +191,14 @@ const deleteUser = async (id) => {
 };
 
 const findBymail = async (mail) => {
+  if (!mail) throw Error ('Debes ingresar un mail'); 
+  
   const userMail = User.findOne({
     where: { mail },
   });
+
+  if (!userMail) throw Error(`El usuario con mail ${mail} no fue encontrado`);
+
   return userMail;
 };
 
@@ -160,6 +206,9 @@ const changePasswordByToken = async (token, password) => {
   const { email } = verify(token, process.env.SECRET);
 
   const userUpdate = await findBymail(email);
+
+  if (!userUpdate) throw Error(`El usuario con mail ${email} no fue encontrado`); 
+
   userUpdate.password = password;
   await userUpdate.save();
 

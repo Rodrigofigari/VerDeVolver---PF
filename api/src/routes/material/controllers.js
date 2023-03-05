@@ -2,6 +2,8 @@ const { Material } = require('../../db.js');
 
 
 const createMaterial = async (body) => {
+  if (!body) throw Error('No se recibieron materiales'); 
+
   const { name, VdVId } = body;
 
   try {
@@ -14,11 +16,13 @@ const createMaterial = async (body) => {
 
     return newMaterial;
   } catch (error) {
-    throw Error('Ocurrio un error. No fue posible procesar la peticion');
+    throw Error('Ocurrio un error durante la creación de materiales. No fue posible procesar la peticion');
   }
 };
 
 const crearMaterialFinal = async (body) => {
+  if (!body) throw Error('No se recibieron materiales'); 
+
   const { name } = body;
   const material = await Material.create({
     name,
@@ -28,11 +32,12 @@ const crearMaterialFinal = async (body) => {
 
 const getAllMaterials = async () => {
   const allMaterials = await Material.findAll();
-  console.log(allMaterials);
   return allMaterials;
 };
 
 const deleteMaterial = async (name) => {
+  if(!name) throw Error('Debes ingresar un nombre'); 
+
   const material = await Material.destroy({
     where: { name: name },
   });

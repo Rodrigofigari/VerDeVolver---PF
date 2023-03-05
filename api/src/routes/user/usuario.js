@@ -14,6 +14,7 @@ const {
   deleteUser,
   findBymail,
   changePasswordByToken,
+  modifyUserRole,
 } = require('./controllers.js');
 const router = Router();
 
@@ -32,9 +33,7 @@ router.post('/', async (req, res) => {
     const result = await postUser(body);
     res.status(200).send(result);
   } catch (error) {
-    res
-      .status(404)
-      .send(`El usuario con mail ${body.mail}, ya habia sido creado`);
+    res.status(404).send({ error: error.message });
   }
 });
 
@@ -47,13 +46,10 @@ router.get('/', async (req, res) => {
       res.status(200).send(allUsers);
     } else {
       const userbyName = await getByName(name);
-
-      !userbyName.length
-        ? res.status(400).send(`No se encontro usuario con nombre ${name}`)
-        : res.status(200).send(userbyName);
+      res.status(200).send(userbyName);
     }
   } catch (error) {
-    return res.status(404).send(error.message);
+     res.status(404).send(error.message);
   }
 });
 
@@ -61,11 +57,9 @@ router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const byId = await findId(id);
-    !byId
-      ? res.status(400).send(`El usuario con id ${id} no fue encontrado`)
-      : res.status(200).send(byId);
+    res.status(200).send(byId);
   } catch (error) {
-    return res.status(404).send(error.message);
+    res.status(404).send(error.message);
   }
 });
 
@@ -74,11 +68,9 @@ router.put('/:id', async (req, res) => {
   const userSent = req.body;
 
   try {
-    const upgradedId = await findId(id);
-    if (!upgradedId)
-      res.status(404).send(`El usuario con id ${id} no fue encontrado`);
-
+    await findId(id);
     await updateUser(userSent, id);
+
     const result = await findId(id);
     return res.status(200).send(result);
   } catch (error) {
@@ -89,8 +81,8 @@ router.put('/:id', async (req, res) => {
 router.put('/toowner/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const modifyUser = await modifyUserRole(id);
 
+    const modifyUser = await modifyUserRole(id);
     res.status(200).send(modifyUser);
   } catch (error) {
     return res.status(404).send(error.message);
@@ -101,7 +93,7 @@ router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     await deleteUser(id);
-    return res
+      return res
       .status(200)
       .send(`El usuario con id ${id}, fue eliminado satisfactoriamente`);
   } catch (error) {
@@ -112,9 +104,7 @@ router.delete('/:id', async (req, res) => {
 router.get('/password/:email', async (req, res) => {
   const { email } = req.params;
   try {
-    console.log('email', email);
     const user = await findBymail(email);
-    console.log('user', user.name);
     sendEmail(
       email,
       'Cambio de contraseña',

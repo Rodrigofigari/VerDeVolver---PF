@@ -10,9 +10,9 @@ const Footer = () => {
         width="full"
         p="1rem"
         bg="#80808080"
-        color="#e4ebed"
-        pos="absolute"
-        bottom="0"
+        color={'white'}
+        // bottom={'0'}
+        position={'absolute'}
       >
         <Text fontSize="l">
           © 2023 VerDeVolver. All rights reserved. Designed and developed by
