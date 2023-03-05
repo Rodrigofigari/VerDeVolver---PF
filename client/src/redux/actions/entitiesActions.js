@@ -10,6 +10,18 @@ export const GET_MATERIALS = 'GET_MATERIALS';
 export const FILTER_ENTITIES_BY_MATERIAL = 'FILTER_ENTITIES_BY_MATERIAL';
 export const LIST_OF_MATERIALS_TO_FILTER = 'LIST_OF_MATERIALS_TO_FILTER';
 export const SORT_ENTITIES_BY_RANKING = 'SORT_ENTITIES_BY_RANKING';
+export const GET_ENTITY_DONATIONS = 'GET_ENTITY_DONATIONS';
+
+export const getEntityDonation = (id) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`http://localhost:3001/donation/vdv/${id}`);
+      return dispatch({ type: GET_ENTITY_DONATIONS, payload: res.data });
+    } catch (error) {
+      return dispatch({ type: GET_ENTITY_DONATIONS, payload: error.message });
+    }
+  };
+};
 
 export const fetchEntities = () => {
   return async (dispatch) => {

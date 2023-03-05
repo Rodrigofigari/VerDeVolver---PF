@@ -15,6 +15,7 @@ const {
   changeStatus,
   getPending,
   getActive,
+  deletePerfil,
 } = require('./controllers.js');
 
 const router = Router();
@@ -172,6 +173,16 @@ router.put('/status/:id', async (req, res) => {
     /* res.status(200).send('Solicitud aprobada. Se te ha creado una contrasena provisoria'); */
   } catch (error) {
     res.status(404).send(error - message);
+  }
+});
+
+router.put('/deletePerfil/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await deletePerfil(id);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 });
 

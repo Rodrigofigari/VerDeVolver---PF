@@ -133,16 +133,23 @@ const deleteVdV = (id) => {
 };
 
 const functionRandom = () => {
-  return (random = Math.random() * 55.2);
+  return (random = Math.random() * 9);
 };
 
 const changeStatus = async (id) => {
   const randomPassword = functionRandom();
 
   await VdV.update(
-    { status: 'Active', password: `!dfg${randomPassword}` },
+    { status: 'Active', password: `VerdeVolver${randomPassword}` },
     { where: { id } }
   );
+
+  const result = await getByIdVdV(id);
+  return result;
+};
+
+const deletePerfil = async (id) => {
+  await VdV.update({ status: 'Disabled' }, { where: { id } });
 
   const result = await getByIdVdV(id);
   return result;
@@ -158,4 +165,5 @@ module.exports = {
   changeStatus,
   getPending,
   getActive,
+  deletePerfil,
 };
