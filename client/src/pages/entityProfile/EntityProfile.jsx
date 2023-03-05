@@ -4,6 +4,8 @@ import axios from 'axios';
 import { updateVdV, deleteVdV, addMaterial, deleteMaterial } from './utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import Autocomplete from 'react-google-autocomplete';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 import {
   Box,
   Button,
@@ -69,6 +71,9 @@ function EntityProfile() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [mapCenter, setMapCenter] = useState({ lat: -39, lng: -64 });
+  const [activeMarker, setActiveMarker] = useState(null);
+  const [zoom, setZoom] = useState(5);
 
   const { acount } = useSelector((state) => state.acountReducer);
   // const id = acount.id;
@@ -113,6 +118,25 @@ function EntityProfile() {
 
   const handleDeleteEntity = () => {
     deleteVdV(id, navigate);
+  };
+
+  const handlePlaceSelected = (e) => {
+    const latitude = e.geometry.location.lat();
+    const longitude = e.geometry.location.lng();
+    setMapCenter({
+      lat: latitude,
+      lng: longitude,
+    });
+    setZoom(13);
+    setActiveMarker(e);
+    setInput((prevForm) => {
+      return {
+        ...prevForm,
+        address: e.formatted_address,
+        lat: latitude,
+        lng: longitude,
+      };
+    });
   };
 
   // if (!Object.entries(acount).length) return navigate('/login');
@@ -211,11 +235,31 @@ function EntityProfile() {
               onChange={handleChange}
               //   setSaveButton={setSaveButton}
             />
-            <Image
-              src="https://i.blogs.es/0f9387/coche/450_1000.jpg"
-              w="20vw"
-            />
+            <Box align="center">
+              <Autocomplete
+                onPlaceSelected={(e) => handlePlaceSelected(e)}
+                style={autocompleteStyle}
+                options={{
+                  types: ['address'],
+                  componentRestrictions: { country: 'ar' },
+                }}
+              />
+            </Box>
           </InputGroup>
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={mapCenter}
+            zoom={zoom}
+          >
+            {activeMarker && (
+              <Marker
+                position={{
+                  lat: activeMarker.geometry.location.lat(),
+                  lng: activeMarker.geometry.location.lng(),
+                }}
+              />
+            )}
+          </GoogleMap>
         </Box>
       </GridItem>
 
@@ -374,6 +418,22 @@ function EntityProfile() {
 }
 
 export default EntityProfile;
+
+const autocompleteStyle = {
+  width: '100%',
+  height: '40px',
+  padding: '10px',
+  border: '1px solid gray',
+  borderRadius: '4px',
+};
+
+const containerStyle = {
+  width: '40vw',
+  height: '50vh',
+  position: 'absolute',
+  right: '0vw',
+  top: '50vh',
+};
 
 // import React, { useState, useEffect } from 'react';
 // import {
