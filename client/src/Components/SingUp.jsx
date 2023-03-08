@@ -137,12 +137,12 @@ const SingUp = () => {
 
   return (
     <Box
-      h="75rem"
+      h="80rem"
       p={'6rem'}
       bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
     >
       <Box
-        height="65rem"
+        height="72rem"
         w="60%"
         bg={colorMode === 'light' ? '#F5F2EB' : '#333C49'}
         margin="0 auto"
@@ -157,7 +157,7 @@ const SingUp = () => {
           justifyContent={'center'}
         >
           <Image
-            src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
+            src="https://res.cloudinary.com/verdevolver/image/upload/v1678234115/My_project-1_1_dmqtx2.png"
             w="10rem"
             style={{ transform: 'scale(2.3)' }}
           />
@@ -188,7 +188,11 @@ const SingUp = () => {
                 placeholder="Escribe tu nombre"
               />
             </InputGroup>
-            {errors.name && <FormErrorMessage>{errors.name}</FormErrorMessage>}
+            {errors.name && (
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.name}
+              </FormErrorMessage>
+            )}
           </FormControl>
 
           <FormControl isInvalid={errors.last_name}>
@@ -210,7 +214,9 @@ const SingUp = () => {
               />
             </InputGroup>
             {errors.last_name && (
-              <FormErrorMessage>{errors.last_name}</FormErrorMessage>
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.last_name}
+              </FormErrorMessage>
             )}
           </FormControl>
 
@@ -231,7 +237,11 @@ const SingUp = () => {
                 placeholder="Escribe tu mail"
               />
             </InputGroup>
-            {errors.mail && <FormErrorMessage>{errors.mail}</FormErrorMessage>}
+            {errors.mail && (
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.mail}
+              </FormErrorMessage>
+            )}
           </FormControl>
 
           <FormControl isInvalid={errors.password}>
@@ -260,11 +270,13 @@ const SingUp = () => {
               </InputRightElement>
             </InputGroup>
             {errors.password && (
-              <FormErrorMessage>{errors.password}</FormErrorMessage>
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.password}
+              </FormErrorMessage>
             )}
           </FormControl>
 
-          <FormControl pl={'25rem'} pb={'1rem'}>
+          <FormControl pl={'15rem'} pb={'1rem'}>
             <FormLabel>Imagen</FormLabel>
             <UploadImage
               onUpload={handleUploadImage}

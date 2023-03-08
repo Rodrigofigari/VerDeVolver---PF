@@ -21,8 +21,8 @@ const sendEmail = (userEmail, subject, html) => {
       disableUrlAccess: false,
       attachments: [
         {
-          filename: 'Header_Mail_pblyyo.png',
-          path: 'https://res.cloudinary.com/verdevolver/image/upload/v1677343466/Header_Mail_pblyyo.png',
+          filename: 'Header_Mail2_swefln.png',
+          path: 'https://res.cloudinary.com/verdevolver/image/upload/v1678234707/Header_Mail2_swefln.png',
           cid: 'vdv@Logo',
         },
         {

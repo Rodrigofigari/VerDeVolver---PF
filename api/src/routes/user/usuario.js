@@ -8,6 +8,7 @@ const {
   updateUser,
   deleteUser,
   modifyUserRole,
+  findBymail,
 } = require('./controllers.js');
 const router = Router();
 
@@ -74,8 +75,9 @@ router.put('/:id', async (req, res) => {
 router.put('/toowner/:id', async (req, res) => {
   try {
     const { id } = req.params;
+    const { roleId } = req.query;
 
-    const modifyUser = await modifyUserRole(id);
+    const modifyUser = await modifyUserRole(id, roleId);
     res.status(200).send(modifyUser);
   } catch (error) {
     return res.status(404).send(error.message);
@@ -91,6 +93,16 @@ router.delete('/:id', async (req, res) => {
       .send(`El usuario con id ${id}, fue eliminado satisfactoriamente`);
   } catch (error) {
     return res.status(404).send(error.message);
+  }
+});
+
+router.get('/getByEmail/:mail', async (req, res) => {
+  const { mail } = req.params;
+  try {
+    const result = await findBymail(mail);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 });
 

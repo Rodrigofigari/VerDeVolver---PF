@@ -59,7 +59,7 @@ const setMp = async (body) => {
       },
     ],
     notification_url:
-      'https://00fb-190-139-91-88.sa.ngrok.io/donation/confirmationDonation',
+      'https://6bb4-181-166-141-30.sa.ngrok.io/donation/confirmationDonation',
 
     back_urls: {
       success: 'http://localhost:5173/home',

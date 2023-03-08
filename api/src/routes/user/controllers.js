@@ -90,7 +90,7 @@ const postUser = async (body) => {
         name: body.name,
         last_name: body.last_name,
         mail: body.mail,
-        password: hash, 
+        password: hash,
         RoleId: role.id,
         image: body.image,
       });
@@ -165,11 +165,12 @@ const updateUser = async (userToUD, id) => {
   });
 };
 
-const modifyUserRole = async (id) => {
+const modifyUserRole = async (id, roleId) => {
+  if (!id) throw Error('Debes ingresar un id valido');
   try {
-    if (!id) throw Error('Debes ingresar un id');
-    //3 es owner
-    await User.update({ RoleId: 3 }, { where: { id } });
+    const idRole = await Role.findAll({ where: { name: roleId } });
+    console.log('idrole', idRole);
+    await User.update({ RoleId: idRole[0].dataValues.id }, { where: { id } });
 
     const userModified = await findId(id);
     return userModified;
@@ -199,7 +200,7 @@ const deleteUser = async (id) => {
 const findBymail = async (mail) => {
   if (!mail) throw Error('Debes ingresar un mail');
 
-  const userMail = User.findOne({
+  const userMail = User.findAll({
     where: { mail },
   });
 
@@ -217,4 +218,5 @@ module.exports = {
   updateUser,
   deleteUser,
   modifyUserRole,
+  findBymail,
 };

@@ -59,14 +59,7 @@ const pepe = [
   },
 ];
 
-//----------PENDIENTES---------------
-//** HACER RUTAS PARA TRAERNOS LAS VDV QUE ESTEN ACTIVAS O PENDIENTES -> admin "Pending" y listado entidades "Active".✔️
-//** QUERY SEARCHBAR -> BUSQUEDA POR LO INGRESADO EN EL SEARCHBAR (NOMBRE/STRING DE LA VDV -> QIE TRAIGA TODAS LAS VDV CORRESPONDIENTES AL VALOR INGRESADO) ✔️
-
-//** VER DE DEVOLVERLES UN ARRAY CON LOS NOMBRES DE LOS MATERIALES -> ["Madera", "Vidrio", etc] 🥴
-//** VER COMO PODEMOS IMPLEMENTAR EL FILTRADO COMBINADO EN EL BACK, LOS CHICOS DEL FRONT NO TIENEN DRAMA EN ENCARGARSE ELLOS -> FILTROS(MATERIALES) + ORDENAMIENTO(RATING/PUNTUACION)
-
-//FUNCIONA. ESTE ES EL BULKCREATE PARA CARGAR LA BASE DE DATOS
+// ESTE ES EL BULKCREATE PARA CARGAR LA BASE DE DATOS
 router.post('/chargeDb', async (req, res) => {
   try {
     const chargeVdvsDb = await chargeDbVdVs(pepe);
@@ -76,7 +69,6 @@ router.post('/chargeDb', async (req, res) => {
   }
 });
 
-//FUNCIONA
 router.post('/', async (req, res) => {
   try {
     const result = await vdvCreate(req.body);
@@ -97,7 +89,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-//FUNCIONA
 router.get('/', async (req, res) => {
   const { name } = req.query;
   try {
@@ -128,7 +119,7 @@ router.get('/active', async (req, res) => {
   }
 });
 
-//FUNCIONA. getByIdVdV
+// getByIdVdV
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -139,7 +130,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-//FUNCIONA. upDateVdV
+// upDateVdV
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { body } = req;
@@ -151,7 +142,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-//FUNCIONA. deleteVdV
+// deleteVdV
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -163,7 +154,6 @@ router.delete('/:id', async (req, res) => {
 });
 
 // cambio de pending a active una vez aprobada la solicitud
-// TODAS LOS REGISTROS DE CREACION DE VDV ARRANCAN EN PENDING - TENERLO EN CUENTA PARA EL PRIMER SPRINT
 router.put('/status/:id', async (req, res) => {
   const { id } = req.params;
 

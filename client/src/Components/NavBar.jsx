@@ -29,9 +29,9 @@ const Navbar = () => {
     >
       <Link as={ReachLink} to="/home">
         <Image
-          src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
-          w="10rem"
-          style={{ transform: 'scale(1.4)' }}
+          src="https://res.cloudinary.com/verdevolver/image/upload/v1678234115/My_project-1_1_dmqtx2.png"
+          w="8rem"
+          style={{ transform: 'scale(2.1)' }}
         />
       </Link>
 

@@ -152,7 +152,7 @@ const Login = () => {
       bg={colorMode === 'light' ? '#b4c4ac' : '#212933'}
     >
       <Box
-        height="40rem"
+        height="50rem"
         w="50%"
         bg={colorMode === 'light' ? '#F5F2EB' : '#333C49'}
         margin="0 auto"
@@ -167,7 +167,7 @@ const Login = () => {
           justifyContent={'center'}
         >
           <Image
-            src="https://res.cloudinary.com/verdevolver/image/upload/v1677472484/images/kj5khde8ek1o7xrpwhaj.png"
+            src="https://res.cloudinary.com/verdevolver/image/upload/v1678234115/My_project-1_1_dmqtx2.png"
             w="10rem"
             style={{ transform: 'scale(1.9)' }}
           />
@@ -197,7 +197,11 @@ const Login = () => {
                 placeholder="Escribe tu mail"
               />
             </InputGroup>
-            {errors.mail && <FormErrorMessage>{errors.mail}</FormErrorMessage>}
+            {errors.mail && (
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.mail}
+              </FormErrorMessage>
+            )}
           </FormControl>
 
           <FormControl isInvalid={errors.password}>
@@ -225,7 +229,9 @@ const Login = () => {
               </InputRightElement>
             </InputGroup>
             {errors.password && (
-              <FormErrorMessage>{errors.password}</FormErrorMessage>
+              <FormErrorMessage pl={'10rem'} pr="10rem">
+                {errors.password}
+              </FormErrorMessage>
             )}
           </FormControl>
 
